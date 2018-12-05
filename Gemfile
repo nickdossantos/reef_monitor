@@ -41,6 +41,12 @@ gem 'devise'
 # Used for enviroment variables
 gem 'figaro'
 
+# Boostrap
+gem 'bootstrap', '~> 4.1.3'
+
+# JQuery For bootstrap
+gem 'jquery-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
