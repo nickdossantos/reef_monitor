@@ -1,0 +1,60 @@
+#logo {
+  float: left;
+  font-size: 1.7em;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  font-weight: bold;
+}
+
+#logo:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+#cur_temp{
+  background-color: white;
+  width: 50%;
+  margin: 2em auto;
+  border-radius: 25px;
+  padding: 25px;
+}
+
+#cur_temp p{
+  color: black;
+}
+
+.nav.navbar-nav li a{
+    color: white;
+}
+
+.dropdown-menu.black li a{
+    color: black;
+}
+.center {
+  text-align: center;
+}
+
+.jumbotron {
+  color: black;
+  background-size: cover;
+}
+
+footer{
+  margin-top: 45px;
+  padding-bottom: 5px;
+  border-top: 1px solid #eaeaea;
+  color: #777;
+}
+
+footer a:hover{
+  color: #222;
+}
+footer small {
+  float: left;
+}
+
+footer ul{
+  float: right;
+  list-style: none;
+}
