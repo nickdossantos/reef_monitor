@@ -1,2 +1,8 @@
-<h2>This is the home page.</h2>
-<%=button_to "Login", new_user_session_path %>
+<div class="center jumbotron">
+  <h2>This is the home page.</h2>
+  <% if user_signed_in? %>
+    <%= button_to('Logout', destroy_user_session_path, method: :delete) %>
+  <% else %>
+    <%= button_to('Login', new_user_session_path)  %>
+  <% end %>
+</div>
