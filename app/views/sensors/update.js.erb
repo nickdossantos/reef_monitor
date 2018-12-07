@@ -1,0 +1,2 @@
+$('#sensor-<%=@sensor.id%>').replaceWith("<%= j render partial: 'index_row', locals: {sensor: @sensor} %>");
+$('#sensorModal').modal('toggle');

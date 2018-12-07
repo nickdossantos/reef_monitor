@@ -1,0 +1,22 @@
+<div id="user-tanks">
+  <p id="notice"><%= notice %></p>
+
+  <h3>Tanks</h3>
+
+  <table id="user-tanks-table" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Desription</th>
+        <th>Date</th>
+        <th><%= link_to 'New Tank', new_user_tank_path, remote: true %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= render partial: 'index_row', collection: @tanks, as: :tank %>
+    </tbody>
+  </table>
+
+  <br>
+</div>

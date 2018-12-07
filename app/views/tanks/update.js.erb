@@ -1,0 +1,2 @@
+$('#tank-<%=@tank.id%>').replaceWith("<%= j render partial: 'index_row', locals: {tank: @tank} %>");
+$('#tankModal').modal('toggle');

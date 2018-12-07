@@ -1,0 +1,12 @@
+<tr id="reading-<%= reading.id %>">
+  <td class="reading-name"><%= reading.value%></td>
+  <td class="reading-sensor_goal_value"><%= reading.sensor.goal_value %></td>
+  <td class="reading-name"><%= reading.sensor.name %></td>
+  <td class="reading-tank"><%= reading.tank.name%></td>
+  <td class="reading-date"><%= reading.created_at %></td>
+  <td>
+    <%= link_to("Edit",edit_user_reading_path(@user,reading), class: "btn btn-primary btn-sm", remote: true) %>
+
+    <%= link_to 'Delete', user_reading_path(@user,reading), method: :delete, remote: true, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm" %>
+  </td>
+</tr>

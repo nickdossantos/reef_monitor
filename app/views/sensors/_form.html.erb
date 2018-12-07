@@ -1,0 +1,55 @@
+<%= form_with(model: sensor, url: user_sensors_path(@user), local: false,) do |form| %>
+  <% if sensor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sensor.errors.count, "error") %> prohibited this sensor from being saved:</h2>
+
+      <ul>
+      <% sensor.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="modal-header">
+    <h5 class="modal-title">New Sensor</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="form-group row">
+      <%= form.label :name, "Name", class: "col-sm-4 control-lable" %>
+      <div class="col-sm-8">
+        <div class="input-group">
+          <%= form.text_field :name, id: :sensor_name, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= form.label :goal_value, "Goal Value", class: "col-sm-4 control-lable" %>
+      <div class="col-sm-8">
+        <div class="input-group">
+          <%= form.number_field :goal_value, id: :sensor_goal_value, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= form.label :tank_id, "Tank", class: "col-sm-4 control-lable" %>
+      <div class="col-sm-8">
+        <div class="input-group">
+          <%= form.collection_select :tank_id, @user.tanks, :id, :name, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </div>
+
+<% end %>

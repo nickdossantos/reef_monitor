@@ -1,0 +1,24 @@
+<div id="user-readings">
+  <p id="notice"><%= notice %></p>
+
+  <h3>Readings</h3>
+
+  <table id="user-readings-table" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Value</th>
+        <th>Goal Value</th>
+        <th>Sensor</th>
+        <th>Value</th>
+        <th>Date</th>
+        <th><%= link_to 'New reading', new_user_reading_path, remote: true %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= render partial: 'index_row', collection: @readings, as: :reading %>
+    </tbody>
+  </table>
+
+  <br>
+</div>
