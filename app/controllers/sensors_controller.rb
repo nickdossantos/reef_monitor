@@ -5,6 +5,7 @@ class SensorsController < ApplicationController
   # GET /sensors.json
   def index
     @sensors = Sensor.all
+    render layout: false
   end
 
   # GET /sensors/1
@@ -25,14 +26,12 @@ class SensorsController < ApplicationController
   # POST /sensors.json
   def create
     @sensor = Sensor.new(sensor_params)
-
+    @sensor.user_id = @user.id
     respond_to do |format|
       if @sensor.save
-        format.html { redirect_to @sensor, notice: 'Sensor was successfully created.' }
-        format.json { render :show, status: :created, location: @sensor }
+        format.js { }
       else
-        format.html { render :new }
-        format.json { render json: @sensor.errors, status: :unprocessable_entity }
+        format.js { render json: @sensor.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,11 +41,10 @@ class SensorsController < ApplicationController
   def update
     respond_to do |format|
       if @sensor.update(sensor_params)
-        format.html { redirect_to @sensor, notice: 'Sensor was successfully updated.' }
-        format.json { render :show, status: :ok, location: @sensor }
+        format.js { }
+
       else
-        format.html { render :edit }
-        format.json { render json: @sensor.errors, status: :unprocessable_entity }
+        format.js { render json: @sensor.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -56,8 +54,7 @@ class SensorsController < ApplicationController
   def destroy
     @sensor.destroy
     respond_to do |format|
-      format.html { redirect_to sensors_url, notice: 'Sensor was successfully destroyed.' }
-      format.json { head :no_content }
+      format.js { }
     end
   end
 
@@ -69,6 +66,6 @@ class SensorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sensor_params
-      params.fetch(:sensor, {})
+      params.require(:sensor).permit(:name, :goal_value, :tank_id)
     end
 end
