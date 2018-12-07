@@ -4,7 +4,7 @@ class ReadingsController < ApplicationController
   # GET /readings
   # GET /readings.json
   def index
-    @readings = Reading.all
+    @readings = @user.readings
     render layout: false
   end
 

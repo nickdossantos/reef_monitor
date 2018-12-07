@@ -1,7 +1,7 @@
 <tr id="sensor-<%= sensor.id %>">
-  <td class="sensor-name"><%= sensor.name%></td>
+  <td class="sensor-name"><%= sensor&.name%></td>
   <td class="sensor-description"><%= sensor.goal_value %></td>
-  <td class="sensor-tank"><%= sensor.tank.name%></td>
+  <td class="sensor-tank"><%= sensor&.tank&.name%></td>
   <td class="sensor-date"><%= sensor.created_at %></td>
   <td class="sensor-graph"><button class="btn btn-success btn-sm">Graph</button></td>
   <td>

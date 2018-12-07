@@ -4,7 +4,7 @@ class SensorsController < ApplicationController
   # GET /sensors
   # GET /sensors.json
   def index
-    @sensors = Sensor.all
+    @sensors = @user.sensors
     render layout: false
   end
 
