@@ -2,46 +2,44 @@
   <h2 class="center">Dashboard</h2>
   <h4 class="center">Welcome <%=@user.email%></h4>
 </div>
-<h3>Sensors</h3>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Goal Value</th>
-      <th scope="col">Date</th>
-      <th scope="col">Charts</th>
-    </tr>
-  </thead>
-  <tbody>
 
-  </tbody>
-</table>
+  <%= render 'tank_section' %>
 
-<h3>Readings</h3>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Sensor</th>
-      <th scope="col">Tank</th>
-      <th scope="col">Value</th>
-      <th scope="col">Date</th>
-    </tr>
-  </thead>
-  <tbody>
+<div class="row">
+  <div class="col-sm-6">
+    <h3>Sensors</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Goal Value</th>
+          <th>Tank</th>
+          <th scope="col">Date</th>
+          <th scope="col">Charts</th>
+        </tr>
+      </thead>
+      <tbody>
 
-  </tbody>
-</table>
+      </tbody>
+    </table>
+  </div>
 
-<h3>Tanks</h3>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Description</th>
-      <th scope="col">Date</th>
-    </tr>
-  </thead>
-  <tbody>
+  <div class="col-sm-6">
+    <h3>Readings</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Sensor</th>
+          <th scope="col">Tank</th>
+          <th scope="col">Value</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody>
 
-  </tbody>
-</table>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= render 'tank_modal' %>

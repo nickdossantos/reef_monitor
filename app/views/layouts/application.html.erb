@@ -14,6 +14,8 @@
       <p class="alert"><%= alert %></p>
     <%= yield %>
     </div>
+
   </body>
+  <%= content_for :render_async %>
   <%= render 'layouts/footer'%>
 </html>
