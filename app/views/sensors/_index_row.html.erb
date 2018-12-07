@@ -3,9 +3,10 @@
   <td class="sensor-description"><%= sensor.goal_value %></td>
   <td class="sensor-tank"><%= sensor.tank.name%></td>
   <td class="sensor-date"><%= sensor.created_at %></td>
+  <td class="sensor-graph"><button class="btn btn-success btn-sm">Graph</button></td>
   <td>
-    <%= link_to("Edit",edit_user_sensor_path(@user,sensor), class: "btn btn-xs btn-primary", remote: true) %>
+    <%= link_to("Edit",edit_user_sensor_path(@user,sensor), class: "btn btn-primary btn-sm", remote: true) %>
 
-    <%= link_to 'Delete', user_sensor_path(@user,sensor), method: :delete, remote: true, data: { confirm: 'Are you sure?' },class: "btn btn-xs btn-danger" %>
+    <%= link_to 'Delete', user_sensor_path(@user,sensor), method: :delete, remote: true, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm" %>
   </td>
 </tr>

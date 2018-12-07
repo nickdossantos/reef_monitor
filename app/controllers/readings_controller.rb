@@ -5,6 +5,7 @@ class ReadingsController < ApplicationController
   # GET /readings.json
   def index
     @readings = Reading.all
+    render layout: false
   end
 
   # GET /readings/1
@@ -25,14 +26,12 @@ class ReadingsController < ApplicationController
   # POST /readings.json
   def create
     @reading = Reading.new(reading_params)
-
+    @reading.user_id = @user.id
     respond_to do |format|
       if @reading.save
-        format.html { redirect_to @reading, notice: 'Reading was successfully created.' }
-        format.json { render :show, status: :created, location: @reading }
+        format.js { }
       else
-        format.html { render :new }
-        format.json { render json: @reading.errors, status: :unprocessable_entity }
+        format.js { render json: @reading.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,11 +41,9 @@ class ReadingsController < ApplicationController
   def update
     respond_to do |format|
       if @reading.update(reading_params)
-        format.html { redirect_to @reading, notice: 'Reading was successfully updated.' }
-        format.json { render :show, status: :ok, location: @reading }
+        format.js { }
       else
-        format.html { render :edit }
-        format.json { render json: @reading.errors, status: :unprocessable_entity }
+        format.js { render json: @reading.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -56,8 +53,7 @@ class ReadingsController < ApplicationController
   def destroy
     @reading.destroy
     respond_to do |format|
-      format.html { redirect_to readings_url, notice: 'Reading was successfully destroyed.' }
-      format.json { head :no_content }
+      format.js{ }
     end
   end
 
@@ -69,6 +65,6 @@ class ReadingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reading_params
-      params.fetch(:reading, {})
+      params.require(:reading ).permit(:sensor_id, :tank_id, :value)
     end
 end

@@ -1,0 +1,2 @@
+$('#reading-<%=@reading.id%>').replaceWith("<%= j render partial: 'index_row', locals: {reading: @reading} %>");
+$('#readingModal').modal('toggle');
