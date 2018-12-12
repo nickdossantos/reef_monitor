@@ -1,3 +1,4 @@
 <div id="tank-section">
-    <%= render_async user_sensors_path(@user) %>
+    <%puts @tank.name, "TANK IS BEING SENT"%>
+    <%= render_async user_tank_sensors_path(@user,@tank) %>
 </div>

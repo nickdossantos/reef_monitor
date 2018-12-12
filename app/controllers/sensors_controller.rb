@@ -4,7 +4,8 @@ class SensorsController < ApplicationController
   # GET /sensors
   # GET /sensors.json
   def index
-    @sensors = @user.sensors
+    @tank = @user.tanks.find(params[:tank_id])
+    @sensors = @tank.sensors
     render layout: false
   end
 

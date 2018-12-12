@@ -4,6 +4,6 @@ class PagesController < ApplicationController
   end
 
   def tanks
-
+    @tanks = @user.tanks
   end
 end
