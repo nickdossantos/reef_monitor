@@ -21,37 +21,8 @@
           Reef Monitor
         </a>
       </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="<%='active' if @page_tab == "dashboard"%>">
-            <a href="./dashboard.html">
-              <i class="nc-icon nc-bank"></i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          <li class="<%='active' if @page_tab == "raspberry_pi"%>">
-            <a href="./map.html">
-              <i class="nc-icon nc-globe"></i>
-              <p>Raspberry Pi</p>
-            </a>
-          </li>
-          <li class="<%='active' if @page_tab == "notifications"%>">
-            <a href="./notifications.html">
-              <i class="nc-icon nc-bell-55"></i>
-              <p>Notifications</p>
-            </a>
-          </li>
-          <li class="<%='active' if @page_tab == "user_profile"%>">
-            <a href="./user.html">
-              <i class="nc-icon nc-single-02"></i>
-              <p>User Profile</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
+    </div> 
     <div class="main-panel">
-      <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
         <div class="container-fluid">
           <div class="navbar-wrapper">
@@ -95,13 +66,10 @@
           </div>
         </div>
       </nav>
-
       <div class="content">
         <%= yield %>
       </div>
-      <%= render 'layouts/footer'%>
     </div>
-
   </body>
   <%= content_for :render_async %>
 </html>
