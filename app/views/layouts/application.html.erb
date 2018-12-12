@@ -26,31 +26,25 @@
         </div>
         <div class="sidebar-wrapper">
           <ul class="nav">
-            <li class="active ">
+            <li class="<%='active' if @page_tab == "dashboard"%>">
               <a href="./dashboard.html">
                 <i class="nc-icon nc-bank"></i>
                 <p>Dashboard</p>
               </a>
             </li>
-            <li>
-              <a href="./icons.html">
-                <i class="nc-icon nc-diamond"></i>
-                <p>Tanks</p>
-              </a>
-            </li>
-            <li>
+            <li class="<%='active' if @page_tab == "raspberry_pi"%>">
               <a href="./map.html">
-                <i class="nc-icon nc-pin-3"></i>
+                <i class="nc-icon nc-globe"></i>
                 <p>Raspberry Pi</p>
               </a>
             </li>
-            <li>
+            <li class="<%='active' if @page_tab == "notifications"%>">
               <a href="./notifications.html">
                 <i class="nc-icon nc-bell-55"></i>
                 <p>Notifications</p>
               </a>
             </li>
-            <li>
+            <li class="<%='active' if @page_tab == "user_profile"%>">
               <a href="./user.html">
                 <i class="nc-icon nc-single-02"></i>
                 <p>User Profile</p>
