@@ -16,6 +16,7 @@ class ReadingsController < ApplicationController
 
   # GET /readings/new
   def new
+    @tank = @user.tanks.find(params[:tank_id])
     @reading = Reading.new
   end
 

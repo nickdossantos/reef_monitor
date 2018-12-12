@@ -16,6 +16,7 @@ class SensorsController < ApplicationController
 
   # GET /sensors/new
   def new
+    @tank = @user.tanks.find(params[:tank_id])
     @sensor = Sensor.new
   end
 

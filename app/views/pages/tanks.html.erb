@@ -1,20 +1,16 @@
-<%@tanks.each do |tank|%>
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title"><%=tank.name%></h5>
-        <p class="card-category"><%=tank.description%></p>
-        <%=button_to "dashboard", dashboard_path(@user, tank.id), method: :get, class:"btn btn-primary btn-sm"%>
-      </div>
-    </div>
-  </div>
-<%end%>
+<div id="tank_section_tanks">
+  <%= render partial: 'pages/tank', collection: @tanks, as: :tank %>
+</div>
 
 <div class="col-md-4">
   <div class="card">
     <div class="card-header">
       <h5 class="card-title">Add a Tank</h5>
-      <button type="button" name="plus" class="btn btn-primary btn-sm">+</button>
+      <%=link_to(new_user_tank_path(@user), remote: true, class: "btn btn-success") do %>
+      <i class="nc-icon nc-simple-add"></i>
+      <%end%>
     </div>
   </div>
 </div>
+
+<%= render 'tank_modal'%>

@@ -1,4 +1,4 @@
-<div id="user-sensors">
+<div id="user-sensors-table">
   <p id="notice"><%= notice %></p>
   <div class="content">
     <div class="row">
@@ -17,10 +17,10 @@
                     <th>Tank</th>
                     <th>Date</th>
                     <th>Graph</th>
-                    <th><%= link_to 'New sensor', new_user_tank_sensor_path, remote: true %></th>
+                    <th><%= link_to 'New sensor', new_user_tank_sensor_path(@user, @tank), class: "btn btn-primary btn-sm", remote: true %></th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="user-sensors-table-tbody">
                   <%= render partial: 'index_row', collection: @sensors, as: :sensor %>
                 </tbody>
               </table>

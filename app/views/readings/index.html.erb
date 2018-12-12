@@ -17,10 +17,10 @@
                     <th>Sensor</th>
                     <th>Value</th>
                     <th>Date</th>
-                    <th><%= link_to 'New reading', new_user_tank_reading_path, remote: true %></th>
+                    <th><%= link_to 'New reading', new_user_tank_reading_path(@user, @tank), class: "btn btn-primary btn-sm", remote: true %></th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="user-readings-table-tbody">
                   <%= render partial: 'index_row', collection: @readings, as: :reading %>
                 </tbody>
               </table>

@@ -5,8 +5,8 @@
   <td class="sensor-date"><%= sensor.created_at %></td>
   <td class="sensor-graph"><button class="btn btn-success btn-sm">Graph</button></td>
   <td>
-    <%= link_to("Edit",edit_user_tank_sensor_path(@user,@tank,sensor), class: "btn btn-primary btn-sm", remote: true) %>
+    <%= link_to("Edit",edit_user_tank_sensor_path(@user,sensor.tank,sensor), class: "btn btn-primary btn-sm", remote: true) %>
 
-    <%= link_to 'Delete', user_tank_sensor_path(@user,@tank,sensor), method: :delete, remote: true, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm" %>
+    <%= link_to 'Delete', user_tank_sensor_path(@user,sensor.tank,sensor), method: :delete, remote: true, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm" %>
   </td>
 </tr>
