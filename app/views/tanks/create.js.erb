@@ -1,2 +1,2 @@
-$('#user-tanks-table tbody').append("<%= j render partial: 'index_row', locals: {tank: @tank} %>");
+$('#tank_section_tanks').append("<%= j render partial: 'pages/tank', locals: {tank: @tank} %>");
 $('#tankModal').modal('toggle');

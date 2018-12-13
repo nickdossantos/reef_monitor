@@ -1,24 +1,34 @@
 <div id="user-readings">
   <p id="notice"><%= notice %></p>
-
-  <h3>Readings</h3>
-
-  <table id="user-readings-table" class="table table-striped">
-    <thead>
-      <tr>
-        <th>Value</th>
-        <th>Goal Value</th>
-        <th>Sensor</th>
-        <th>Value</th>
-        <th>Date</th>
-        <th><%= link_to 'New reading', new_user_reading_path, remote: true %></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <%= render partial: 'index_row', collection: @readings, as: :reading %>
-    </tbody>
-  </table>
-
+  <div class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title"> Readings </h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                  <tr>
+                    <th>Value</th>
+                    <th>Goal Value</th>
+                    <th>Sensor</th>
+                    <th>Value</th>
+                    <th>Date</th>
+                    <th><%= link_to 'New reading', new_user_tank_reading_path(@user, @tank), class: "btn btn-primary btn-sm", remote: true %></th>
+                  </tr>
+                </thead>
+                <tbody id="user-readings-table-tbody">
+                  <%= render partial: 'index_row', collection: @readings, as: :reading %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <br>
 </div>

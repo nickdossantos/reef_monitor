@@ -5,8 +5,8 @@
   <td class="reading-tank"><%= reading.tank.name%></td>
   <td class="reading-date"><%= reading.created_at %></td>
   <td>
-    <%= link_to("Edit",edit_user_reading_path(@user,reading), class: "btn btn-primary btn-sm", remote: true) %>
+    <%= link_to("Edit",edit_user_tank_reading_path(@user,reading.tank,reading), class: "btn btn-primary btn-sm", remote: true) %>
 
-    <%= link_to 'Delete', user_reading_path(@user,reading), method: :delete, remote: true, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm" %>
+    <%= link_to 'Delete', user_tank_reading_path(@user,reading.tank,reading), method: :delete, remote: true, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm" %>
   </td>
 </tr>

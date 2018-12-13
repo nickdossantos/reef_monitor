@@ -4,7 +4,8 @@ class ReadingsController < ApplicationController
   # GET /readings
   # GET /readings.json
   def index
-    @readings = @user.readings
+    @tank = @user.tanks.find(params[:tank_id])
+    @readings = @tank.readings
     render layout: false
   end
 
@@ -15,6 +16,7 @@ class ReadingsController < ApplicationController
 
   # GET /readings/new
   def new
+    @tank = @user.tanks.find(params[:tank_id])
     @reading = Reading.new
   end
 
