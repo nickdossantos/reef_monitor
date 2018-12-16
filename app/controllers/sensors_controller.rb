@@ -60,6 +60,11 @@ class SensorsController < ApplicationController
     end
   end
 
+  # Show Graph for sensors
+  def graph
+    @sensor = Sensor.find(params[:sensor_id])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sensor

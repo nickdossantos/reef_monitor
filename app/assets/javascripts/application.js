@@ -14,5 +14,7 @@
 //= require turbolinks
 //= require jquery3
 //= require popper
+//= require Chart.bundle
+//= require chartkick
 //= require bootstrap-sprockets
 //= require_tree .

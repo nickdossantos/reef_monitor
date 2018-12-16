@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   get 'user/:id/dashboard/tank/:tank_id', to:'dashboard#show', as: 'dashboard'
   resources :users do
     resources :tanks do
-      resources :sensors
+      resources :sensors do
+        get'/graph', to: 'sensors#graph', as: 'graph'
+      end
       resources :readings
     end
   end

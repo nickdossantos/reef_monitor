@@ -1,0 +1,2 @@
+<h2>Graphs</h2>
+<%= line_chart @sensor.readings.group_by_day(:created_at).count %>
