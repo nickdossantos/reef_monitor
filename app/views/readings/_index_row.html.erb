@@ -7,7 +7,7 @@
 <%end%>
   <td class="reading-name"><%= reading.value%></td>
   <td class="reading-sensor_goal_value"><%= reading.sensor.goal_value %></td>
-  <td class="reading-name"><%= reading.sensor.name %></td>
+  <td class="reading-sensor"><%= link_to(reading.sensor.name, user_tank_sensor_path(@user, reading.tank, reading.sensor))%></td>
   <td class="reading-tank"><%= reading.tank.name%></td>
   <td class="reading-date"><%= reading.created_at %></td>
   <td>
