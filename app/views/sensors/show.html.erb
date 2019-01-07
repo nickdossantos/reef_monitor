@@ -1,2 +1,56 @@
-<h1>Sensors#show</h1>
-<p>Find me in app/views/sensors/show.html.erb</p>
+<h1><%=@sensor.name%></h1>
+<div id="user-readings">
+  <p id="notice"><%= notice %></p>
+  <div class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title"> Readings </h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                  <tr>
+                    <th>Value</th>
+                    <th>Goal Value</th>
+                    <th>Sensor</th>
+                    <th>Tank</th>
+                    <th>Date</th>
+                    <th><%= link_to 'New reading', new_user_tank_reading_path(@user, @sensor.tank), class: "btn btn-primary btn-sm", remote: true %></th>
+                  </tr>
+                </thead>
+                <%@readings.each do |reading|%>
+                  <tbody id="user-readings-table-tbody">
+                    <% if reading.value <= reading.sensor.low_value || reading.value >= reading.sensor.high_value %>
+                    <tr id="reading-<%= reading.id %>" class="table-danger">
+                    <%elsif reading.value == reading.sensor.goal_value%>
+                    <tr id="reading-<%= reading.id %>" class="table-success">
+                    <%else%>
+                      <tr id="reading-<%= reading.id %>">
+                    <%end%>
+                      <td class="reading-name"><%= reading.value%></td>
+                      <td class="reading-sensor_goal_value"><%= reading.sensor.goal_value %></td>
+                      <td class="reading-sensor"><%= reading.sensor.name%></td>
+                      <td class="reading-tank"><%= reading.tank.name%></td>
+                      <td class="reading-date"><%= reading.created_at %></td>
+                      <td>
+                        <%= link_to("Edit",edit_user_tank_reading_path(@user,reading.tank,reading), class: "btn btn-primary btn-sm", remote: true) %>
+
+                        <%= link_to 'Delete', user_tank_reading_path(@user,reading.tank,reading), method: :delete, remote: true, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm" %>
+                      </td>
+                    </tr>
+                  </tbody>
+                <%end%>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+</div>
+
+<%=paginate @readings%>

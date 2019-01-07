@@ -12,6 +12,7 @@ class SensorsController < ApplicationController
   # GET /sensors/1
   # GET /sensors/1.json
   def show
+    @readings = @sensor.readings.includes(:tank).page params[:page]
   end
 
   # GET /sensors/new

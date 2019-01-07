@@ -25,7 +25,7 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="<%='active' if @page_tab == "dashboard"%>">
-            <a href="./dashboard.html">
+            <a href="/user/<%=@user.id%>/dashboard/tank/<%=@tank.id%>">
               <i class="nc-icon nc-bank"></i>
               <p>Dashboard</p>
             </a>
