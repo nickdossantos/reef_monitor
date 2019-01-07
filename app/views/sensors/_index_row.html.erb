@@ -1,6 +1,8 @@
 <tr id="sensor-<%= sensor.id %>">
   <td class="sensor-name"><%= sensor&.name%></td>
-  <td class="sensor-description"><%= sensor.goal_value %></td>
+  <td class="sensor-goal_value"><%= sensor.goal_value %></td>
+  <td class="sensor-high_value"><%= sensor.high_value %></td>
+  <td class="sensor-low_value"><%= sensor.low_value %></td>
   <td class="sensor-tank"><%= sensor&.tank&.name%></td>
   <td class="sensor-date"><%= sensor.created_at %></td>
   <td class="sensor-graph"><%= link_to("Graph",user_tank_sensor_graph_path(@user,sensor.tank,sensor), class: "btn btn-success btn-sm") %></td><td>

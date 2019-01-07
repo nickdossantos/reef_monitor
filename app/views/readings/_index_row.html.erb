@@ -1,4 +1,10 @@
-<tr id="reading-<%= reading.id %>">
+<% if reading.value <= reading.sensor.low_value || reading.value >= reading.sensor.high_value %>
+<tr id="reading-<%= reading.id %>" class="table-danger">
+<%elsif reading.value == reading.sensor.goal_value%>
+<tr id="reading-<%= reading.id %>" class="table-success">
+<%else%>
+  <tr id="reading-<%= reading.id %>">
+<%end%>
   <td class="reading-name"><%= reading.value%></td>
   <td class="reading-sensor_goal_value"><%= reading.sensor.goal_value %></td>
   <td class="reading-name"><%= reading.sensor.name %></td>
