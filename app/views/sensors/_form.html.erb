@@ -29,7 +29,21 @@
     <div class="form-group">
       <%= form.label :goal_value, "Goal Value", class: "col-sm-4 control-lable" %>
       <div class="col-sm-8">
-          <%= form.number_field :goal_value, id: :sensor_goal_value, class: "form-control" %>
+          <%= form.number_field :goal_value, id: :sensor_goal_value, :step => "0.001", class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :high_value, "High Value", class: "col-sm-4 control-lable" %>
+      <div class="col-sm-8">
+        <%= form.number_field :high_value, id: :sensor_high_value, :step => "0.001", class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :low_value, "Low Value", class: "col-sm-4 control-lable" %>
+      <div class="col-sm-8">
+        <%= form.number_field :low_value, id: :sensor_low_value, :step => "0.001", class: "form-control" %>
       </div>
     </div>
 
