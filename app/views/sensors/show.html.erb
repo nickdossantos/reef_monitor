@@ -21,8 +21,8 @@
                     <th><%= link_to 'New reading', new_user_tank_reading_path(@user, @sensor.tank), class: "btn btn-primary btn-sm", remote: true %></th>
                   </tr>
                 </thead>
-                <%@readings.each do |reading|%>
-                  <tbody id="user-readings-table-tbody">
+                <tbody id="user-readings-table-tbody">
+                  <%@readings.each do |reading|%>
                     <% if reading.value <= reading.sensor.low_value || reading.value >= reading.sensor.high_value %>
                     <tr id="reading-<%= reading.id %>" class="table-danger">
                     <%elsif reading.value == reading.sensor.goal_value%>
@@ -30,9 +30,9 @@
                     <%else%>
                       <tr id="reading-<%= reading.id %>">
                     <%end%>
-                      <td class="reading-name"><%= reading.value%></td>
+                      <td class="reading-value"><%= reading.value%></td>
                       <td class="reading-sensor_goal_value"><%= reading.sensor.goal_value %></td>
-                      <td class="reading-sensor"><%= reading.sensor.name%></td>
+                      <td class="reading-sensor"><%= link_to(reading.sensor.name, user_tank_sensor_path(@user, reading.tank, reading.sensor))%></td>
                       <td class="reading-tank"><%= reading.tank.name%></td>
                       <td class="reading-date"><%= reading.created_at %></td>
                       <td>
@@ -41,8 +41,8 @@
                         <%= link_to 'Delete', user_tank_reading_path(@user,reading.tank,reading), method: :delete, remote: true, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm" %>
                       </td>
                     </tr>
-                  </tbody>
-                <%end%>
+                  <%end%>
+                </tbody>
               </table>
             </div>
           </div>
