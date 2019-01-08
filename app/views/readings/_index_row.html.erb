@@ -8,7 +8,7 @@
   <td class="reading-name"><%= reading.value%></td>
   <td class="reading-sensor_goal_value"><%= reading.sensor.goal_value %></td>
   <td class="reading-sensor"><%= link_to(reading.sensor.name, user_tank_sensor_path(@user, reading.tank, reading.sensor))%></td>
-  <td class="reading-date"><%= reading.created_at %></td>
+  <td class="reading-date"><%= reading.date %></td>
   <td>
     <%= link_to(edit_user_tank_reading_path(@user,reading.tank,reading), class: "btn btn-primary btn-sm", remote: true) do %>
       <i class="fa fa-pencil"></i>
