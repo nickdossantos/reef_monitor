@@ -1,2 +1,12 @@
-<h2>Graphs</h2>
-<%= line_chart @sensor.readings.group_by_day(:created_at).count %>
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h2><%=@sensor.name%></h2>
+          <%= line_chart @sensor.readings.group_by_day(:created_at).count %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
