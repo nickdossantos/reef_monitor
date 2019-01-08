@@ -1,2 +1,50 @@
-<h2>Graphs</h2>
-<%= line_chart @sensor.readings.group_by_day(:created_at).count %>
+<%= form_tag user_tank_sensor_graphs_with_date_range_path(@user, @tank, @sensor), remote: true do %>
+  <div class="form-group row">
+    <div class="col-sm-1">
+      <label for="start_date">Start date</label>
+    </div>
+
+    <div class="col-sm-3">
+      <div class="input-group">
+        <input type="text" id="datepickerStart" name="datepickerStart" class ="actual_range form-control datepicker" value="<%= @start_date.strftime("%m/%d/%Y")%>"/>
+      </div>
+    </div>
+
+    <div class="col-sm-1 col-sm-offset-1">
+      <label for="end_date">End date</label>
+    </div>
+
+    <div class="col-sm-3">
+      <div class="input-group">
+        <input type="text" id="datepickerEnd" name="datepickerEnd" class="actual_range form-control datepicker" value="<%= @end_date.strftime("%m/%d/%Y")%>"/>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <%= submit_tag 'Show!', class: 'btn btn-primary' %>
+    </div>
+  </div>
+<%end%>
+
+<div class="row">
+    <div id="sensor_reading_line_graph" class="col-md-6">
+      <%=render 'reading_line_graph' %>
+    </div>
+</div>
+
+
+
+
+<script>
+  function formatDateSelection(dateString){
+    if (dateString == ''){
+      var val = new Date;
+    } else {
+      var val = new Date(dateString);
+    }
+    return val.getFullYear() + '-' + (val.getMonth() + 1) + '-' + (val.getDate());
+  }
+
+  $('#datepickerStart, #datepickerEnd').flatpickr({dateFormat: "m/d/Y",allowInput:true, maxDate: "today"});
+
+</script>

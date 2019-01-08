@@ -15,9 +15,11 @@
                     <th>Value</th>
                     <th>Goal Value</th>
                     <th>Sensor</th>
-                    <th>Tank</th>
                     <th>Date</th>
-                    <th><%= link_to 'New reading', new_user_tank_reading_path(@user, @tank), class: "btn btn-primary btn-sm", remote: true %></th>
+                    <th><%= link_to(new_user_tank_reading_path(@user, @tank), class: "btn btn-primary btn-sm", remote: true) do %>
+                          <i class="fa fa-plus"></i> Add New
+                        <% end %>
+                    </th>
                   </tr>
                 </thead>
                 <tbody id="user-readings-table-tbody">

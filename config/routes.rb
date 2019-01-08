@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   resources :users do
     resources :tanks do
       resources :sensors do
-        get'/graph', to: 'sensors#graph', as: 'graph'
+        get '/graph', to: 'sensors#graph', as: 'graph'
+        post '/date_ranges', to: 'sensors#graphs_with_date_range', as: 'graphs_with_date_range'
+        get '/sensor_reading_data', to: 'sensors#sensor_reading_data', as: 'sensor_reading_data'
       end
       resources :readings
     end

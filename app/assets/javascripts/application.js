@@ -17,4 +17,5 @@
 //= require Chart.bundle
 //= require chartkick
 //= require bootstrap-sprockets
+//= require flatpickr
 //= require_tree .

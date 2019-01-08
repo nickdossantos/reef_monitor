@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190107141319) do
+ActiveRecord::Schema.define(version: 20190108195919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 20190107141319) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "tank_id"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.integer "report_type"
+    t.jsonb "report_data", default: {}
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "report_date"
   end
 
   create_table "sensors", force: :cascade do |t|
