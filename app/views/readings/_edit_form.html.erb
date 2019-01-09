@@ -36,7 +36,7 @@
     <div class="form-group">
       <%= form.label :sensor, "Sensor", class: "col-sm-4 control-lable" %>
       <div class="col-sm-8">
-        <%= form.collection_select :sensor_id, @user.sensors, :id, :name, class: "form-control" %>
+        <%= form.collection_select :sensor_id, @tank.sensors, :id, :name, class: "form-control" %>
       </div>
     </div>
 
