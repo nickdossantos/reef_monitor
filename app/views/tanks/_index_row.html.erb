@@ -1,7 +1,7 @@
 <tr id="tank-<%= tank.id %>">
   <td class="tank-name"><%= tank.name%></td>
   <td class="tank-description"><%= tank.description %></td>
-  <td class="tank-date"><%= tank.created_at %></td>
+  <td class="tank-date"><%= tank.created_at.strftime("%d/%m/%Y")%></td>
   <td>
     <%= link_to("Edit",edit_user_tank_path(@user,tank), class: "btn btn-primary btn-sm", remote: true) %>
 

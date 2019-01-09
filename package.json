@@ -1,5 +1,7 @@
 {
   "name": "reef_monitor",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "jquery-mask-plugin": "^1.14.15"
+  }
 }

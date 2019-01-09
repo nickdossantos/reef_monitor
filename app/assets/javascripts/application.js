@@ -18,4 +18,8 @@
 //= require chartkick
 //= require bootstrap-sprockets
 //= require flatpickr
+//= require jquery-mask-plugin
 //= require_tree .
+
+
+$.jMaskGlobals.watchDataMask = true;
