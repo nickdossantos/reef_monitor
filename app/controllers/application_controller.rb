@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
-  before_action :set_user, unless: :devise_controller?
-  before_action :set_tank, unless: :devise_controller?
+  before_action :set_user, :set_app_tank, unless: :devise_controller?
 
   layout :layout_by_resource
 
@@ -12,11 +11,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
   def set_user
     @user = current_user
   end
 
-  def set_tank
+  def set_app_tank
     if params[:tank_id]
       @tank = @user.tanks.find(params[:tank_id])
     end

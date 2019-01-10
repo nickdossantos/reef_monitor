@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'user/:id/dashboard/tank/:tank_id', to:'dashboard#show', as: 'dashboard'
   resources :users do
     resources :tanks do
+      get '/raspberry_pi', to: 'tanks#raspberry_pi', as: 'raspberry_pi'
       resources :sensors do
         get '/graph', to: 'sensors#graph', as: 'graph'
         post '/date_ranges', to: 'sensors#graphs_with_date_range', as: 'graphs_with_date_range'
@@ -16,6 +17,9 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api do
+    post '/readings/:token', to: 'readings#create', constraints: { token: %r{[^\/]+} }
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

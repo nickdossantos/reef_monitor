@@ -1,0 +1,15 @@
+<%tab "raspberry_pi"%>
+
+<div class="col-md-10">
+    <div class="card card-user">
+        <div class="card-header">
+        <h5 class="card-title">Raspberry Pi Setup</h5>
+        </div>
+        <div class="card-body">
+        <p><strong>User</strong> <%=@user.full_name%> | <strong>User Hash:</strong> <%=@user.hash_id %></p>
+        <%@tank.sensors.each do |sensor|%>
+            <p><strong>Sensor Name:</strong> <%=sensor.name%> | <strong>Sensor Hash:</strong> <%=sensor.hash_id%></p>
+        <%end%>
+        </div>
+    </div>
+</div>

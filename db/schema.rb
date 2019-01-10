@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190109145427) do
+ActiveRecord::Schema.define(version: 20190110194411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20190109145427) do
     t.datetime "updated_at", null: false
     t.float "high_value"
     t.float "low_value"
+    t.string "hash_id"
+    t.index ["hash_id"], name: "index_sensors_on_hash_id", unique: true
   end
 
   create_table "tanks", force: :cascade do |t|
@@ -70,7 +72,9 @@ ActiveRecord::Schema.define(version: 20190109145427) do
     t.string "last_name"
     t.string "sms_number"
     t.string "time_zone"
+    t.string "hash_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["hash_id"], name: "index_users_on_hash_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
