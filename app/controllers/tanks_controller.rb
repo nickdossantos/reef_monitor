@@ -52,7 +52,6 @@ class TanksController < ApplicationController
   def reaspberry_pi
     @tank = @user.tanks.find(params[:tank_id])
     puts @user.first_name
-    puts "I am in PI CONTR"
   end
 
   # DELETE /tanks/1
