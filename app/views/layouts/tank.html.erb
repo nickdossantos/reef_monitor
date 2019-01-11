@@ -24,6 +24,12 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
+          <li class="<%='active' if @page_tab == "tanks"%>">
+            <a href="/pages/tanks">
+              <i class="nc-icon nc-world-2"></i>
+              <p>Tanks</p>
+            </a>
+          </li>
           <li class="<%='active' if @page_tab == "user_profile"%>">
             <a href="/users/<%=current_user.id%>/edit">
               <i class="nc-icon nc-single-02"></i>
