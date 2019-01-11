@@ -15,6 +15,7 @@ class SensorsController < ApplicationController
   def show
     @readings = @sensor.readings.includes(:tank).page params[:page]
     @reading = @user.readings.new
+    @tank = @user.tanks.find(params[:tank_id])
   end
 
   # GET /sensors/new
@@ -72,6 +73,7 @@ class SensorsController < ApplicationController
   # Show Graph for sensors
   def graph
     @sensor = Sensor.friendly.find(params[:sensor_id])
+    @tank = @user.tanks.find(params[:tank_id])
   end
 
   def get_graph_data_with_range
