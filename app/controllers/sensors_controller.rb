@@ -64,14 +64,14 @@ class SensorsController < ApplicationController
   end
 
   def sensor_reading_data
-    @sensor = Sensor.find(params[:sensor_id])
+    @sensor = Sensor.friendly.find(params[:sensor_id])
     data = get_graph_data_with_range
     render json: Reading.send(data['method_name'], *data['opts']).where("user_id = ? AND sensor_id = ?", @user.id, @sensor.id).average("value")
   end
 
   # Show Graph for sensors
   def graph
-    @sensor = Sensor.find(params[:sensor_id])
+    @sensor = Sensor.friendly.find(params[:sensor_id])
   end
 
   def get_graph_data_with_range
@@ -89,7 +89,7 @@ end
 
   # Graph with date ranges
   def graphs_with_date_range
-    @sensor = Sensor.find(params[:sensor_id])
+    @sensor = Sensor.friendly.find(params[:sensor_id])
     data = get_graph_data_with_range
     @money_collected_chart_data = Reading.send(data['method_name'], *data['opts']).where("user_id = ? AND sensor_id = ?", @user.id, @sensor.id).average("value")
   end
@@ -97,7 +97,7 @@ end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sensor
-      @sensor = Sensor.find(params[:id])
+      @sensor = Sensor.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
