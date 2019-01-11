@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [ :edit, :update, :destroy]
-  layout "tank"
 
   # GET /users
   # GET /users.json
@@ -59,6 +58,10 @@ class UsersController < ApplicationController
       format.js { }
     end
   end
+
+  def raspberry_pi
+    @user = User.friendly.find(params[:user_id])
+  end 
 
   private
     # Use callbacks to share common setup or constraints between actions.
