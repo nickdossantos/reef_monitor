@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :tanks, dependent: :destroy
   has_many :sensors, dependent: :destroy
   has_many :readings, dependent: :destroy
+  has_many :devices, dependent: :destroy
   
 
   def full_name
