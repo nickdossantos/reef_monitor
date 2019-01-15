@@ -36,8 +36,14 @@
               <p>Raspberry Pi</p>
             </a>
           </li>
+          <li class="<%='active' if @page_tab == "devices"%>">
+            <a href="/users/<%=@user.id%>/devices">
+              <i class="nc-icon nc-laptop"></i>
+              <p>Devices</p>
+            </a>
+          </li>
           <li class="<%='active' if @page_tab == "notifications"%>">
-            <a href="./notifications.html">
+            <a href="/users/<%=@user.id%>/notifications">
               <i class="nc-icon nc-bell-55"></i>
               <p>Notifications</p>
             </a>

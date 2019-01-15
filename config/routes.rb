@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   get 'user/:id/dashboard/tank/:tank_id', to:'dashboard#show', as: 'dashboard'
   resources :users do
+    get 'notifications', to:'users#notifications', as: 'notifications'
+    resources :devices 
     get '/raspberry_pi', to: 'users#raspberry_pi', as: 'raspberry_pi'
     resources :tanks do
       get '/raspberry_pi', to: 'tanks#raspberry_pi', as: 'raspberry_pi'

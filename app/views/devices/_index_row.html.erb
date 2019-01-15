@@ -1,0 +1,15 @@
+<tr id="device-<%= device.id %>">
+  <td class="device-name"><%= device.name%></td>
+  <td class="device-description"><%= device.description%></td>
+  <td class="device-identifier"><%= device.identifier %></td>
+  <td class="device-tank"><%= device.tank.name %></td>
+  <td class="device-post_url"><%= device.post_url %></td>
+  <td>
+    <%= link_to(edit_user_device_path(@user, device.id), class: "btn btn-primary btn-sm", remote: true) do %>
+      <i class="fa fa-pencil"></i>
+    <%end%>
+    <%= link_to(user_device_path(@user,device.id), method: :delete, remote: true, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm")  do %>
+      <i class="fa fa-trash"></i>
+    <%end%>
+  </td>
+</tr>

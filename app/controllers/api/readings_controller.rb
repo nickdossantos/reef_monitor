@@ -7,21 +7,21 @@ class Api::ReadingsController < ApplicationController
         begin 
             decoded_data = Jsonwebtoken.decode(params[:token])
             payload = decoded_data[0]
-            user = User.find_by(hash_id: payload['data']['user'])
-            sensor = Sensor.find_by(hash_id: payload['data']['sensor'])
+            user = User.find_by(hash_id: payload['user'])
+            sensor = Sensor.find_by(hash_id: payload['sensor'])
             reading = Reading.new
             reading.user_id = user.id
             reading.sensor_id = sensor.id
-            reading.date = "10/10/2010"
-            reading.value = payload['data']['value'].to_i
+            reading.date = payload['date']
+            reading.value = payload['value'].to_i
             reading.tank_id = sensor.tank.id
             if reading.save
                 render json: {status: "SUCCESS", message: 'Your token has been decoded.', data: decoded_data}, status: :ok
             else 
                 render json: {status: "FAIL", message: 'Your token has not been decoded.'}, status: :ok
             end 
-        rescue
-            render json: {status: "FAIL", message: 'Your token has not been decoded.'}, status: :ok
+        rescue => e 
+            render json: {status: "FAIL", message: e}, status: :ok
         end
         
     end 
