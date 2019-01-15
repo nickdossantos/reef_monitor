@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'user/:id/dashboard/tank/:tank_id', to:'dashboard#show', as: 'dashboard'
   resources :users do
     get 'notifications', to:'users#notifications', as: 'notifications'
+    get 'generate_auth_token', to:'users#generate_auth_token', as: 'generate_auth_token'
     resources :devices 
     get '/raspberry_pi', to: 'users#raspberry_pi', as: 'raspberry_pi'
     resources :tanks do
