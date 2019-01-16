@@ -82,6 +82,30 @@ class UsersController < ApplicationController
     end
   end
 
+  def turn_off_relay 
+    @user = User.friendly.find(params[:user_id])
+    # post to web app route to turn off relay
+    require 'net/http'
+    uri = URI('http://453a36c8.ngrok.io/api/turn_off_relay')
+    http = Net::HTTP.new(uri.host)
+    request = Net::HTTP::Post.new(uri.request_uri)
+    
+    res = http.request(request)
+    puts res.body
+  end
+
+  def turn_on_relay
+    @user = User.friendly.find(params[:user_id])
+    # post to web app route to turn off relay
+    require 'net/http'
+    uri = URI('http://453a36c8.ngrok.io/api/turn_on_relay')
+    http = Net::HTTP.new(uri.host)
+    request = Net::HTTP::Post.new(uri.request_uri)
+    
+    res = http.request(request)
+    puts res.body
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

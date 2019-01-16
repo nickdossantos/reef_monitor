@@ -18,6 +18,10 @@
             <%end%>
             <br>
         <%end%>
+        
+        <p><%=link_to 'Turn off relay', user_turn_off_relay_path(@user), remote: true, class: "btn btn-sm-primary"%></p>
+        <p><%=link_to 'Turn on relay', user_turn_on_relay_path(@user), remote: true, class: "btn btn-sm-primary"%></p>
+
         </div>
     </div>
 </div>
