@@ -6,6 +6,9 @@
         <h5 class="card-title">Raspberry Pi Setup</h5>
         </div>
         <div class="card-body">
+        <p id="user_auth_token"><strong>User Auth Token:</strong> <%=@user&.token%></p>
+        <p><%=link_to 'Generate New Auth Token', user_generate_auth_token_path(@user), remote: true, data: { confirm: 'Are you sure you want to generate a new Authentication Token?' }, class: "btn btn-sm-primary"%></p>
+        <br>
         <p><strong>User</strong> <%=@user.full_name%> | <strong>User Hash:</strong> <%=@user.hash_id %></p>
         <br>
         <%@user.tanks.each do |tank|%>

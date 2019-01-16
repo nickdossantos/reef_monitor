@@ -67,6 +67,21 @@ class UsersController < ApplicationController
     @user = User.friendly.find(params[:user_id])
   end
 
+  def generate_auth_token
+    @user = User.friendly.find(params[:user_id])
+    token = SecureRandom.hex
+    loop do
+      token = SecureRandom.hex
+      break unless @user.class.name.constantize.where(:token => token).exists?
+    end
+    @user.token = token 
+    begin
+      @user.save  
+    rescue => exception
+      puts exception
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
