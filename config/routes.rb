@@ -10,16 +10,20 @@ Rails.application.routes.draw do
     get 'turn_on_relay', to:'users#turn_on_relay', as: 'turn_on_relay'
     get 'notifications', to:'users#notifications', as: 'notifications'
     get 'generate_auth_token', to:'users#generate_auth_token', as: 'generate_auth_token'
-    resources :devices 
     get '/raspberry_pi', to: 'users#raspberry_pi', as: 'raspberry_pi'
+    get '/devices/control', to:'devices#device_control', as: 'device_control'
     resources :tanks do
-      get '/raspberry_pi', to: 'tanks#raspberry_pi', as: 'raspberry_pi'
+      get '/raspberry_pi', to: 'tanks#raspberry_pi', as: 'raspberry_pi'      
       resources :sensors do
         get '/graph', to: 'sensors#graph', as: 'graph'
         post '/date_ranges', to: 'sensors#graphs_with_date_range', as: 'graphs_with_date_range'
         get '/sensor_reading_data', to: 'sensors#sensor_reading_data', as: 'sensor_reading_data'
       end
       resources :readings
+      resources :devices do
+        get 'turn_on', to: 'devices#turn_on_device', as: 'turn_on_device'
+        get 'turn_off', to: 'devices#turn_off_device', as: 'turn_off_device'
+      end 
     end
   end
 
