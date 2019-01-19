@@ -20,7 +20,27 @@ class Jsonwebtoken < ApplicationRecord
       token = JWT.encode payload, hmac_secret, ENV['HASH_ALGORITHM']
       token
     end
+
+    def self.encode_device(device, user)
+      # ==========================================
+      # SHARED VALUE BETWEEN APPS
+      # ==========================================
+      hmac_secret=ENV['HMAC_SECRET']
   
+      # ==========================================
+      # ENCRYPT
+      # ==========================================
+      payload = {
+        data: {
+          user_auth: user.token,
+          sensor: device.identifier
+        }
+      }
+
+      token = JWT.encode payload, hmac_secret, ENV['HASH_ALGORITHM']
+      token
+    end 
+
     def self.decode(token)
       # ==========================================
       # DECRYPT

@@ -68,7 +68,7 @@ class DevicesController < ApplicationController
     def device_control
         @devices = @user.devices
         # post to web app route to turn off relay
-        uri = URI('http://b88fbd50.ngrok.io/api/device_status')
+        uri = URI('http://f7a532fc.ngrok.io/api/device_status')
         http = Net::HTTP.new(uri.host)
         request = Net::HTTP::Post.new(uri.request_uri)
         
@@ -79,21 +79,26 @@ class DevicesController < ApplicationController
 
     def turn_on_device
         @device = Device.find(params[:device_id])
-        uri = URI(@device.post_url + "/turn_on_relay")
+        uri = URI(@device.post_url << "/api/turn_on_device?auth_token=" << @user.token << "&identifier=" << @device.identifier)
         http = Net::HTTP.new(uri.host)
         request = Net::HTTP::Post.new(uri.request_uri)
+        
         res = http.request(request)
         puts res.body
+        # The current status of the devices connected to the raspberry pi
         @pi_devices = JSON.parse(res.body)
     end 
 
-    def turn_off_device
+    def turn_off_device        
         @device = Device.find(params[:device_id])
-        uri = URI(@device.post_url + "/turn_off_relay")
+        # TODO STRIP WHITE SPACE FROM POST URL
+        uri = URI(@device.post_url << "/api/turn_off_device?auth_token=" << @user.token << "&identifier=" << @device.identifier)
         http = Net::HTTP.new(uri.host)
         request = Net::HTTP::Post.new(uri.request_uri)
+        
         res = http.request(request)
         puts res.body
+        # The current status of the devices connected to the raspberry pi
         @pi_devices = JSON.parse(res.body)
     end
 

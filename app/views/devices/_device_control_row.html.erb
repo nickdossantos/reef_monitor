@@ -2,7 +2,6 @@
   <td class="device-name"><%= device.name%></td>
   <td class="device-description"><%= device.description%></td>
   <td class="device-tank"><%= device.tank.name %></td>
-  <td class="device-post_url"><%= device.post_url %></td>
   <%puts @pi_devices %>
   <%puts "THIS IS THEM" %>
   <td><%if @pi_devices.any? {|h| h['device'] == device.identifier && h['status'] == false}%>
