@@ -32,7 +32,7 @@ class Jsonwebtoken < ApplicationRecord
       # ==========================================
       payload = {
           auth_token: user.token,
-          identifier: device.identifier
+          identifier: device.hash_id
         }
       token = JWT.encode payload, hmac_secret, ENV['HASH_ALGORITHM']
       token
