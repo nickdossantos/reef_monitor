@@ -78,7 +78,7 @@ class DevicesController < ApplicationController
     end
 
     def turn_on_device
-        @device = Device.find(params[:device_id])
+        @device = Device.friendly.find(params[:device_id])
         token = Jsonwebtoken.encode_device(@user, @device)
         uri = URI(@user.api_endpoint << "/api/turn_on_device?token=" << token)
         http = Net::HTTP.new(uri.host)
@@ -91,7 +91,7 @@ class DevicesController < ApplicationController
     end 
 
     def turn_off_device        
-        @device = Device.find(params[:device_id])
+        @device = Device.friendly.find(params[:device_id])
         token = Jsonwebtoken.encode_device(@user, @device)
         uri = URI(@user.api_endpoint << "/api/turn_off_device?token=" << token)
         http = Net::HTTP.new(uri.host)
@@ -106,7 +106,7 @@ class DevicesController < ApplicationController
     private
         # Use callbacks to share common setup or constraints between actions.
         def set_device
-            @device = Device.find(params[:id])
+            @device = Device.friendly.find(params[:id])
         end
 
         # Never trust parameters from the scary internet, only allow the white list through.

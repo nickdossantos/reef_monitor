@@ -13,7 +13,8 @@ Rails.application.routes.draw do
     get '/raspberry_pi', to: 'users#raspberry_pi', as: 'raspberry_pi'
     get '/devices/control', to:'devices#device_control', as: 'device_control'
     resources :tanks do
-      get '/raspberry_pi', to: 'tanks#raspberry_pi', as: 'raspberry_pi'      
+      get '/raspberry_pi', to: 'tanks#raspberry_pi', as: 'raspberry_pi' 
+      get '/tank_sensors', to: 'tanks#tank_sensors', as: 'tank_sensors'     
       resources :sensors do
         get '/graph', to: 'sensors#graph', as: 'graph'
         post '/date_ranges', to: 'sensors#graphs_with_date_range', as: 'graphs_with_date_range'

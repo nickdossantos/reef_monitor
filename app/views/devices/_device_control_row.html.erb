@@ -2,7 +2,7 @@
   <td class="device-name"><%= device.name%></td>
   <td class="device-description"><%= device.description%></td>
   <td class="device-tank"><%= device.tank.name %></td>
-  <%if @pi_devices.any? {|h| h['device'] == device.identifier && h['status'] == false}%>
+  <%if @pi_devices.any? {|h| h['device'] == device.hash_id && h['status'] == false}%>
     <td><strong>OFF</strong></td>
     <td>
       <%= link_to 'Turn On', user_tank_device_turn_on_device_path(@user, device.tank, device), remote: true, class:"btn btn-primary"%>

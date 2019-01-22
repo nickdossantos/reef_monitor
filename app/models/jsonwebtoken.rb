@@ -21,6 +21,24 @@ class Jsonwebtoken < ApplicationRecord
       token
     end
 
+    def self.encode_user_for_temperature_request(user, tank)
+      # ==========================================
+      # SHARED VALUE BETWEEN APPS
+      # ==========================================
+      hmac_secret=ENV['HMAC_SECRET']
+  
+      # ==========================================
+      # ENCRYPT
+      # ==========================================
+      payload = {
+          auth_token: user.token,
+          hash_id: tank.temp_sensor_id,
+          pin_number: tank.temp_sensor_pin
+        }
+      token = JWT.encode payload, hmac_secret, ENV['HASH_ALGORITHM']
+      token
+    end 
+
     def self.encode_device(user, device)
       # ==========================================
       # SHARED VALUE BETWEEN APPS
@@ -32,7 +50,7 @@ class Jsonwebtoken < ApplicationRecord
       # ==========================================
       payload = {
           auth_token: user.token,
-          identifier: device.identifier
+          hash_id: device.hash_id
         }
       token = JWT.encode payload, hmac_secret, ENV['HASH_ALGORITHM']
       token
