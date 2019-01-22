@@ -1,7 +1,6 @@
 <tr id="device-<%= device.id %>">
   <td class="device-name"><%= device.name%></td>
   <td class="device-description"><%= device.description%></td>
-  <td class="device-identifier"><%= device.identifier %></td>
   <td class="device-tank"><%= device.tank.name %></td>
   <td>
     <%= link_to(edit_user_tank_device_path(@user, device.tank, device), class: "btn btn-primary btn-sm", remote: true) do %>
