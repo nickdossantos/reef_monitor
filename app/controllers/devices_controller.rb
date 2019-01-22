@@ -79,10 +79,11 @@ class DevicesController < ApplicationController
 
     def turn_on_device
         @device = Device.find(params[:device_id])
-        uri = URI(@user.api_endpoint << "/api/turn_on_device?auth_token=" << @user.token << "&identifier=" << @device.identifier)
+        token = Jsonwebtoken.encode_device(@user, @device)
+        uri = URI(@user.api_endpoint << "/api/turn_on_device?token=" << token)
         http = Net::HTTP.new(uri.host)
         request = Net::HTTP::Post.new(uri.request_uri)
-        
+
         res = http.request(request)
         puts res.body
         # The current status of the devices connected to the raspberry pi
@@ -91,11 +92,11 @@ class DevicesController < ApplicationController
 
     def turn_off_device        
         @device = Device.find(params[:device_id])
-        # TODO STRIP WHITE SPACE FROM POST URL
-        uri = URI(@user.api_endpoint << "/api/turn_off_device?auth_token=" << @user.token << "&identifier=" << @device.identifier)
+        token = Jsonwebtoken.encode_device(@user, @device)
+        uri = URI(@user.api_endpoint << "/api/turn_off_device?token=" << token)
         http = Net::HTTP.new(uri.host)
         request = Net::HTTP::Post.new(uri.request_uri)
-        
+
         res = http.request(request)
         puts res.body
         # The current status of the devices connected to the raspberry pi

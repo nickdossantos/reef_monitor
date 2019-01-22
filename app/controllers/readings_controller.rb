@@ -12,6 +12,7 @@ class ReadingsController < ApplicationController
   # GET /readings/1
   # GET /readings/1.json
   def show
+
   end
 
   # GET /readings/new
