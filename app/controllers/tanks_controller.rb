@@ -63,6 +63,11 @@ class TanksController < ApplicationController
     end
   end
 
+  def tank_sensors
+    @tank = @user.tanks.find(params[:tank_id])
+    render layout: false
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tank
@@ -71,6 +76,6 @@ class TanksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tank_params
-      params.require(:tank).permit(:name, :description)
+      params.require(:tank).permit(:name, :description, :temp_sensor_id, :temp_sensor_pin)
     end
 end

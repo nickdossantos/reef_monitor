@@ -5,7 +5,7 @@ class ReadingsController < ApplicationController
   # GET /readings.json
   def index
     @tank = @user.tanks.find(params[:tank_id])
-    @readings = @tank.readings.order(created_at: :desc).limit(25)
+    @readings = @tank.readings.order(created_at: :desc).limit(15)
     render layout: false
   end
 

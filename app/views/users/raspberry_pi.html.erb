@@ -1,6 +1,6 @@
 <%tab "raspberry_pi"%>
 
-<div class="col-md-10">
+<div class="col-md-12">
     <div class="card card-user">
         <div class="card-header">
         <h5 class="card-title">Raspberry Pi Setup</h5>
@@ -11,8 +11,8 @@
         <br>
         <%@user.tanks.each do |tank|%>
          <p><strong>Tank:</strong> <%=tank.name%></p>
-            <%tank.sensors.each do |sensor|%>
-                <p><strong>Sensor Name:</strong> <%=sensor.name%> | <strong>Sensor Hash:</strong> <%=sensor.hash_id%></p>
+            <%tank.devices.each do |device|%>
+                <p><strong>Device Name:</strong> <%=device.name%> | <strong>Device Hash:</strong> <%=device.hash_id%></p>
             <%end%>
             <br>
         <%end%>
