@@ -1,3 +1,4 @@
+<%tab 'devices'%>
 <div id="user-devices">
   <p id="notice"><%= notice %></p>
   <div class="content">
@@ -14,17 +15,13 @@
                   <tr>
                     <th>Name</th>
                     <th>Description</th>
-                    <th>Identifier</th>
                     <th>Tank</th>
-                    <th>API Endpoint</th>
-                    <th><%= link_to(new_user_tank_device_path(@user), class: "btn btn-primary btn-sm", remote: true) do %>
-                          <i class="fa fa-plus"></i> Add New
-                        <% end %>
-                    </th>
+                    <th>Status</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody id="user-devices-table-tbody">
-                  <%= render partial: 'index_row', collection: @devices, as: :device %>
+                  <%= render partial: 'device_control_row', collection: @devices, as: :device %>
                 </tbody>
               </table>
             </div>
