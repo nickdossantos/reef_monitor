@@ -4,7 +4,7 @@ class TanksController < ApplicationController
   # GET /tanks
   # GET /tanks.json
   def index
-    @tanks = @user.tanks
+    @tanks = @user.tanks    
     render layout: false
   end
 
@@ -64,7 +64,7 @@ class TanksController < ApplicationController
   end
 
   def tank_sensors
-    @tank = @user.tanks.find(params[:tank_id])
+    @tank = @user.tanks.includes(:sensors).find(params[:tank_id])
     render layout: false
   end
 

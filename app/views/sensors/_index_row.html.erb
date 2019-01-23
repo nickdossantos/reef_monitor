@@ -1,16 +1,16 @@
 <tr id="sensor-<%= sensor.id %>">
-  <td class="sensor-name"><%= link_to(sensor.name, user_tank_sensor_path(@user, sensor.tank.id, sensor))%></td>
+  <td class="sensor-name"><%= link_to(sensor.name, user_tank_sensor_path(@user, @tank.id, sensor))%></td>
   <td class="sensor-goal_value"><%= sensor.goal_value %></td>
   <td class="sensor-high_value"><%= sensor.high_value %></td>
   <td class="sensor-low_value"><%= sensor.low_value %></td>
-  <td class="sensor-graph"><%= link_to(user_tank_sensor_graph_path(@user,sensor.tank.id, sensor), class: "btn btn-success btn-sm") do %>
+  <td class="sensor-graph"><%= link_to(user_tank_sensor_graph_path(@user, @tank.id, sensor), class: "btn btn-success btn-sm") do %>
     <i class="fa fa-line-chart"></i>
   <%end%>
   <td>
-    <%= link_to(edit_user_tank_sensor_path(@user,sensor.tank,sensor), class: "btn btn-primary btn-sm", remote: true) do %>
+    <%= link_to(edit_user_tank_sensor_path(@user, @tank, sensor), class: "btn btn-primary btn-sm", remote: true) do %>
       <i class="fa fa-pencil"></i>
     <%end%>
-    <%= link_to(user_tank_sensor_path(@user,sensor.tank,sensor), method: :delete, remote: true, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm")  do %>
+    <%= link_to(user_tank_sensor_path(@user, @tank, sensor), method: :delete, remote: true, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm")  do %>
       <i class="fa fa-trash"></i>
     <%end%>
   </td>
