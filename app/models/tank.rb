@@ -3,4 +3,8 @@ class Tank < ApplicationRecord
   has_many :sensors
   has_many :readings
   has_many :devices
+
+  def has_temp_sensor_configured?
+    (self.temp_sensor_id.present? && self.temp_sensor_pin.present?)
+  end 
 end
