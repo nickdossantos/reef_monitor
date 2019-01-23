@@ -20,7 +20,7 @@
             <div class="card-footer ">
             <hr>
             <div class="stats">
-                <i class="fa fa-refresh"></i> <%=Time.now.utc.in_time_zone(@user.time_zone).strftime('%m/%d/%Y %l:%M %p')%>
+                <i class="fa fa-refresh"></i> <%=Time.now.in_time_zone(@user.time_zone).strftime('%m/%d/%Y %l:%M %p')%>
             </div>
             </div>
         </div>

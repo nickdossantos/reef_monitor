@@ -13,4 +13,8 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def has_api_configured?
+    self.api_endpoint.present?
+  end
 end

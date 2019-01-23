@@ -1,7 +1,5 @@
 class DevicesController < ApplicationController
     before_action :set_device, only: [:show, :edit, :update, :destroy]
-    require 'json'
-    require 'net/http'
 
     # GET /devices
     # GET /devices.json
@@ -66,41 +64,20 @@ class DevicesController < ApplicationController
     end
 
     def device_control
-        @devices = @user.devices
-        # post to web app route to turn off relay
-        uri = URI(@user.api_endpoint << '/api/device_status')
-        http = Net::HTTP.new(uri.host)
-        request = Net::HTTP::Post.new(uri.request_uri)
-        
-        res = http.request(request)
-        puts res.body
-        @pi_devices = JSON.parse(res.body)
+        @devices = @user.devices        
+        @pi_devices = DeviceService.device_status(@user)
     end
 
     def turn_on_device
         @device = Device.friendly.find(params[:device_id])
-        token = Jsonwebtoken.encode_device(@user, @device)
-        uri = URI(@user.api_endpoint << "/api/turn_on_device?token=" << token)
-        http = Net::HTTP.new(uri.host)
-        request = Net::HTTP::Post.new(uri.request_uri)
-
-        res = http.request(request)
-        puts res.body
-        # The current status of the devices connected to the raspberry pi
-        @pi_devices = JSON.parse(res.body)
+        # Turns on device on pi and gets status of devices.
+        @pi_devices = DeviceService.turn_on_device_pi(@user, @device)
     end 
 
     def turn_off_device        
         @device = Device.friendly.find(params[:device_id])
-        token = Jsonwebtoken.encode_device(@user, @device)
-        uri = URI(@user.api_endpoint << "/api/turn_off_device?token=" << token)
-        http = Net::HTTP.new(uri.host)
-        request = Net::HTTP::Post.new(uri.request_uri)
-
-        res = http.request(request)
-        puts res.body
-        # The current status of the devices connected to the raspberry pi
-        @pi_devices = JSON.parse(res.body)
+        # Turns off device on pi and gets status of devices.
+        @pi_devices = DeviceService.turn_off_device_pi(@user, @device)
     end
 
     private
