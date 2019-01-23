@@ -5,7 +5,7 @@ class ReadingsController < ApplicationController
   # GET /readings.json
   def index
     @tank = @user.tanks.find(params[:tank_id])
-    @readings = @tank.readings.order(created_at: :desc).limit(15)
+    @readings = @tank.readings.includes(:sensor).order(created_at: :desc).limit(15)    
     render layout: false
   end
 
@@ -28,6 +28,7 @@ class ReadingsController < ApplicationController
   # POST /readings
   # POST /readings.json
   def create
+    @tank = @user.tanks.find(params[:tank_id])
     @reading = Reading.new(reading_params)
     @reading.user_id = @user.id
     respond_to do |format|

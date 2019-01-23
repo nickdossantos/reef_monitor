@@ -4,8 +4,7 @@ class DevicesController < ApplicationController
     # GET /devices
     # GET /devices.json
     def index
-        @tank = @user.tanks.find(params[:tank_id])
-        @devices = @tank.devices
+        @tank = @user.tanks.includes(:devices).find(params[:tank_id])
         render layout: false
     end
 
@@ -16,8 +15,8 @@ class DevicesController < ApplicationController
 
     # GET /devices/new
     def new
-        @device = Device.new
         @tank = @user.tanks.find(params[:tank_id])
+        @device = Device.new
     end
 
     # GET /devices/1/edit
@@ -30,15 +29,15 @@ class DevicesController < ApplicationController
     # POST /devices
     # POST /devices.json
     def create
+        @tank = @user.tanks.find(params[:tank_id])
         @device = Device.new(device_params)
         @device.user_id = @user.id
-        respond_to do |format|
-        if @device.save
-            format.js { }
-        else
-            format.js { render :new }
-            format.js { render json: @device.errors, status: :unprocessable_entity }
-        end
+            respond_to do |format|
+            if @device.save
+                format.js { }
+            else
+                format.js { render json: @device.errors, status: :unprocessable_entity }
+            end
         end
     end
 
