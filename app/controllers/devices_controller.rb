@@ -21,8 +21,6 @@ class DevicesController < ApplicationController
 
     # GET /devices/1/edit
     def edit
-        @user = User.friendly.find(params[:user_id])
-
         @tank = @user.tanks.find(params[:tank_id])
     end
 
@@ -44,6 +42,7 @@ class DevicesController < ApplicationController
     # PATCH/PUT /devices/1
     # PATCH/PUT /devices/1.json
     def update
+        @tank = @user.tanks.find(params[:tank_id])
         respond_to do |format|
             if @device.update(device_params)
                 format.js {}
@@ -87,6 +86,6 @@ class DevicesController < ApplicationController
 
         # Never trust parameters from the scary internet, only allow the white list through.
         def device_params
-            params.require(:device).permit(:name, :description, :identifier, :post_url, :tank_id, :user_id)
+            params.require(:device).permit(:name, :description, :tank_id, :user_id, :pin_number)
         end
 end

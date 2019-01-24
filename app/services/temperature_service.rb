@@ -8,7 +8,7 @@ class TemperatureService
             url = URI.parse(user.api_endpoint << "/api/get_temperature_reading?token=" << Jsonwebtoken.encode_user_for_temperature_request(user, tank))
             req = Net::HTTP::Get.new(url.to_s)
             res = Net::HTTP.start(url.host, url.port) {|http|
-            http.request(req)
+                http.request(req)
             }
             data = JSON.parse(res.body)
             reading = Reading.new
@@ -24,6 +24,7 @@ class TemperatureService
     end
 
     def self.get_temperature(user, tank)
+        puts "in service"
         url = URI.parse(user.api_endpoint << "/api/get_temperature_reading?token=" << Jsonwebtoken.encode_user_for_temperature_request(user, tank))
         req = Net::HTTP::Get.new(url.to_s)
         res = Net::HTTP.start(url.host, url.port) {|http|

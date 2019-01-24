@@ -43,6 +43,7 @@ class ReadingsController < ApplicationController
   # PATCH/PUT /readings/1
   # PATCH/PUT /readings/1.json
   def update
+    @tank = @user.tanks.find(params[:tank_id])
     respond_to do |format|
       if @reading.update(reading_params)
         format.js { }
@@ -64,7 +65,7 @@ class ReadingsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_reading
-      @reading = Reading.find(params[:id])
+      @reading = Reading.includes(:tank).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

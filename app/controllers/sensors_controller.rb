@@ -45,6 +45,7 @@ class SensorsController < ApplicationController
   # PATCH/PUT /sensors/1
   # PATCH/PUT /sensors/1.json
   def update
+    @tank = @user.tanks.find(params[:tank_id])
     respond_to do |format|
       if @sensor.update(sensor_params)
         format.js { }

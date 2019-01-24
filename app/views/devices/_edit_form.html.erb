@@ -1,4 +1,4 @@
-<%= form_with(model: device, url: user_tank_device_path(@user), local: false,) do |form| %>
+<%= form_with(model: device, url: user_tank_device_path(@user, @tank), local: false,) do |form| %>
   <% if device.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(device.errors.count, "error") %> prohibited this device from being saved:</h2>
@@ -34,16 +34,16 @@
     </div>
 
     <div class="form-group">
-      <%= form.label :identifier, "Identifier", class: "col-sm-4 control-lable" %>
+      <%= form.label :pin_number, "Pin Number", class: "col-sm-4 control-lable" %>
       <div class="col-sm-8">
-        <%= form.text_field :identifier, id: :device_identifier, class: "form-control" %>
+        <%= form.number_field :pin_number, id: :device_pin_number, class: "form-control" %>
       </div>
     </div>
 
     <div class="form-group">
-      <%= form.label :sensor, "Tank", class: "col-sm-4 control-lable" %>
+      <%= form.label :tank_id, "Tank", class: "col-sm-4 control-lable" %>
       <div class="col-sm-8">
-        <%= form.collection_select :tank_id, @user.tanks, :id, :name, class: "form-control" %>
+        <%= form.text_field :tank_id, disabled: true, value: @tank.name, class: "form-control" %>
       </div>
     </div>
 
