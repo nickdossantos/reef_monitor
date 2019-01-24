@@ -6,7 +6,7 @@ class DashboardController < ApplicationController
     @sensor = @user.sensors.new
     @reading = @user.readings.new
     if @tank.temp_sensor_id
-      @farenheit = TemperatureService.get_temperature(@user, @tank)
+      @temperature_data = TemperatureService.get_temperature(@user, @tank)
     end 
   end
 end
