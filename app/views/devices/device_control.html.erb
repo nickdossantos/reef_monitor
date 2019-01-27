@@ -21,7 +21,17 @@
                   </tr>
                 </thead>
                 <tbody id="user-devices-table-tbody">
-                  <%= render partial: 'device_control_row', collection: @devices, as: :device %>
+                  <%if @pi_devices%>
+                    <%= render partial: 'device_control_row', collection: @devices, as: :device %>
+                  <%else%>
+                      <div class="alert alert-danger alert-dismissible fade show">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                          <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span>
+                          <b> Warning - </b>Could not retreive data from Pi.</span>
+                      </div>
+                  <%end%>
                 </tbody>
               </table>
             </div>

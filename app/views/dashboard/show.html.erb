@@ -2,7 +2,7 @@
 
 <h4><%=@tank.name%></h4>
 
-<%if @user.has_api_configured? && @tank.has_temp_sensor_configured?%>
+<%if @user.has_api_configured? && @tank.has_temp_sensor_configured? && @temperature_data%>
     <%= render 'temperature_widget'%>
 <%end%>
 
