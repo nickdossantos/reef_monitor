@@ -12,11 +12,7 @@
           <div class="form-group">
               <%= form.label :temp_sensor_id, "Temperature Parameter" %>
               <%= form.collection_select(:temp_sensor_id, @tank.sensors, :id, :name, {:include_blank => true}, {:class => 'form-control'})%>
-          </div>
-          <div class="form-group">
-            <%= form.label :temp_sensor_pin, "Temperature Pin" %>                                            
-            <%= form.number_field :temp_sensor_pin, id: :tank_temp_sensor_pin, class: "form-control" %>
-          </div>                
+          </div>             
           <div class="row">
             <div class="update ml-auto mr-auto">
               <button type="submit" class="btn btn-primary btn-round">Update</button>
