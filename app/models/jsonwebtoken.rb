@@ -2,7 +2,7 @@ class Jsonwebtoken < ApplicationRecord
     require 'jwt'
     require 'uri'
   
-    def self.encode(user_hash, sensor_hash, value)
+    def self.encode_for_get_device_status(user)
       # ==========================================
       # SHARED VALUE BETWEEN APPS
       # ==========================================
@@ -11,12 +11,10 @@ class Jsonwebtoken < ApplicationRecord
       # ==========================================
       # ENCRYPT
       # ==========================================
-      payload = {data: {
-        user: user_hash,
-        sensor: sensor_hash,
-        value: value
-      }}
-  
+      payload = {
+        auth_token: user.token,
+        devices: user.devices.map {|device| {id: device.id, pin_number: device.pin_number}}
+      }
       token = JWT.encode payload, hmac_secret, ENV['HASH_ALGORITHM']
       token
     end
@@ -31,9 +29,7 @@ class Jsonwebtoken < ApplicationRecord
       # ENCRYPT
       # ==========================================
       payload = {
-          auth_token: user.token,
-          hash_id: tank.temp_sensor_id,
-          pin_number: tank.temp_sensor_pin
+          auth_token: user.token
         }
       token = JWT.encode payload, hmac_secret, ENV['HASH_ALGORITHM']
       token
@@ -50,7 +46,8 @@ class Jsonwebtoken < ApplicationRecord
       # ==========================================
       payload = {
           auth_token: user.token,
-          hash_id: device.hash_id
+          pin_number: device.pin_number,
+          devices: user.devices.map {|device| {id: device.id, pin_number: device.pin_number}}
         }
       token = JWT.encode payload, hmac_secret, ENV['HASH_ALGORITHM']
       token
@@ -62,35 +59,6 @@ class Jsonwebtoken < ApplicationRecord
       # ==========================================
       hmac_secret=ENV['HMAC_SECRET']
       decoded_data = JWT.decode(token, hmac_secret, ENV['HASH_ALGORITHM'])
-      puts decoded_data
-      decoded_data
-    end
-  
-    def self.encode_student_quiz(student_id, quiz_id)
-      # ==========================================
-      # SHARED VALUE BETWEEN APPS
-      # ==========================================
-      hmac_secret=ENV['HMAC_SECRET']
-  
-      # ==========================================
-      # ENCRYPT
-      # ==========================================
-      payload = {data: {
-        student: student_id,
-        student_quiz: quiz_id
-      }}
-  
-      token = JWT.encode payload, hmac_secret, ENV['HASH_ALGORITHM']
-      token
-    end
-  
-    def self.decode_student_quiz(token)
-      # ==========================================
-      # DECRYPT
-      # ==========================================
-      hmac_secret=ENV['HMAC_SECRET']
-      decoded_data = JWT.decode(token, hmac_secret, ENV['HASH_ALGORITHM'])
-      puts decoded_data
       decoded_data
     end
   

@@ -1,7 +1,10 @@
 <%tab "dashboard"%>
 
 <h4><%=@tank.name%></h4>
-<%= render 'temperature_widget'%>
+
+<%if @user.has_api_configured? && @tank.has_temp_sensor_configured? && @temperature_data%>
+    <%= render 'temperature_widget'%>
+<%end%>
 
 <%= render 'sensor_section'%>
 <%= render 'reading_section'%>
