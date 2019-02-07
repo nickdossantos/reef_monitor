@@ -16,14 +16,50 @@
               </div>
             </div>
           </div>  
-        <div class="form-group">
-          <%= form.label :sms_number, "SMS Number"%>                                                 
-          <%= form.telephone_field :sms_number, class: 'form-control', 'data-mask': '000-000-0000'%>
-        </div>  
-         <div class="row">
-          <div class="update ml-auto mr-auto">
-            <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= form.label :email, "Email Frequency"%>     
+                <%= form.select(:email_notification_frequency, User.email_notification_frequencies.keys.map {|type| [type.titleize,type]}, {}, class: 'form-control', id: 'schedule_schedule_type') %>                                            
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= form.label :email_notification_hour, "Email Alert Hour"%>
+                <%= form.number_field :email_notification_hour, min: 0, max: 24, class:"form-control"%>
+              </div>
+            </div>
+          </div> 
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <%= form.label :sms_number, "SMS Number"%>                                                 
+                <%= form.telephone_field :sms_number, class: 'form-control', 'data-mask': '000-000-000'%>
+              </div>  
+            </div>
           </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= form.label :sms_notification_frequency, "SMS Frequency"%> 
+                <%= form.select(:sms_notification_frequency, User.sms_notification_frequencies.keys.map {|type| [type.titleize,type]}, {}, class: 'form-control', id: 'schedule_schedule_type') %>                                                
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= form.label :sms_notification_hour, "SMS Alert Hour"%>
+                <%= form.number_field :sms_notification_hour, min: 0, max: 24, class:"form-control"%>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
+            </div>
         </div>
       </div>
     </div>
