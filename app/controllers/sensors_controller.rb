@@ -78,7 +78,7 @@ class SensorsController < ApplicationController
   end
 
   def get_graph_data_with_range
-    opts = ['created_at', {range: @start_date..@end_date}]
+    opts = ['created_at', {range: @start_date..@end_date, series: false}]
     method_name = :group_by_day
     if @end_date - (1.year + 2.days) > @start_date
       opts[1].merge!({format: '%Y'})

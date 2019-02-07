@@ -1,3 +1,31 @@
 <%tab'notifications'%>
-<h2><%=@user.full_name%></h2>
-<h2>Notifications</h2>
+
+<%= form_for(@user, url: user_path(@user.id), remote: true) do |form| %>
+  <div class="col-md-10">
+    <div class="card card-user">
+      <div class="card-header">
+        <h5 class="card-title">Notifications</h5>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <%= form.label :email, "Email"%>                
+                <%= form.email_field :email, id: :user_email, class: "form-control" %>  
+              </div>
+            </div>
+          </div>  
+        <div class="form-group">
+          <%= form.label :sms_number, "SMS Number"%>                                                 
+          <%= form.telephone_field :sms_number, class: 'form-control', 'data-mask': '000-000-0000'%>
+        </div>  
+         <div class="row">
+          <div class="update ml-auto mr-auto">
+            <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<%end%>
