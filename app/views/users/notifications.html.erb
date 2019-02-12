@@ -26,8 +26,8 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <%= form.label :email_notification_hour, "Email Alert Hour"%>
-                <%= form.number_field :email_notification_hour, min: 0, max: 24, class:"form-control"%>
+                <%= form.label :email_notification_hour, "Email Alert Hour"%>          
+                <%= form.select(:email_notification_hour, options_for_select( (00..24).step(1).to_a.map{|s| (s > 11?["#{s} PM", s.to_i] : ["#{s} AM", s.to_i])}, @user.email_notification_hour), {}, {class:"form-control"})%>       
               </div>
             </div>
           </div> 
@@ -51,7 +51,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <%= form.label :sms_notification_hour, "SMS Alert Hour"%>
-                <%= form.number_field :sms_notification_hour, min: 0, max: 24, class:"form-control"%>
+                <%= form.select(:sms_notification_hour, options_for_select( (00..24).step(1).to_a.map{|s| (s > 11?["#{s} PM", s.to_i] : ["#{s} AM", s.to_i])}, @user.sms_notification_hour), {}, {class:"form-control"})%>       
               </div>
             </div>
           </div>
