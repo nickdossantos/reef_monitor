@@ -1,3 +1,69 @@
 <%tab'notifications'%>
-<h2><%=@user.full_name%></h2>
-<h2>Notifications</h2>
+
+<%= form_for(@user, url: user_path(@user.id), remote: true) do |form| %>
+  <div class="col-md-10">
+    <div class="card card-user">
+      <div class="card-header">
+        <h5 class="card-title">Notifications</h5>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <%= form.label :email, "Email"%>                
+                <%= form.email_field :email, id: :user_email, class: "form-control" %>  
+              </div>
+            </div>
+          </div>  
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= form.label :email, "Email Frequency"%>     
+                <%= form.select(:email_notification_frequency, User.email_notification_frequencies.keys.map {|type| [type.titleize,type]}, {}, class: 'form-control', id: 'schedule_schedule_type') %>                                            
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= form.label :email_notification_hour, "Email Alert Hour"%>          
+                <%= form.select(:email_notification_hour, options_for_select( (00..24).step(1).to_a.map{|s| (s > 11?["#{s} PM", s.to_i] : ["#{s} AM", s.to_i])}, @user.email_notification_hour), {}, {class:"form-control"})%>       
+              </div>
+            </div>
+          </div> 
+
+          <br>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <%= form.label :sms_number, "SMS Number"%>                                                 
+                <%= form.telephone_field :sms_number, class: 'form-control', 'data-mask': '000-000-000'%>
+              </div>  
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= form.label :sms_notification_frequency, "SMS Frequency"%> 
+                <%= form.select(:sms_notification_frequency, User.sms_notification_frequencies.keys.map {|type| [type.titleize,type]}, {}, class: 'form-control', id: 'schedule_schedule_type') %>                                                
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= form.label :sms_notification_hour, "SMS Alert Hour"%>
+                <%= form.select(:sms_notification_hour, options_for_select( (00..24).step(1).to_a.map{|s| (s > 11?["#{s} PM", s.to_i] : ["#{s} AM", s.to_i])}, @user.sms_notification_hour), {}, {class:"form-control"})%>       
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<%end%>

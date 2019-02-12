@@ -3,9 +3,10 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-        <h2><%=@sensor.name%></h2>
-        <%= line_chart user_tank_sensor_sensor_reading_data_path(@user,@tank, @sensor), id: "readings_line_chart"%>
-        <hr>
+          <h2><%=@sensor.name%></h2>
+          <%= line_chart user_tank_sensor_sensor_reading_data_path(@user,@tank, @sensor), id: "readings_line_chart"%>
+          <hr>
+        </div>
       </div>
     </div>
   </div>

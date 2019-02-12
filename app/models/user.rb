@@ -8,7 +8,16 @@ class User < ApplicationRecord
   has_many :sensors, dependent: :destroy
   has_many :readings, dependent: :destroy
   has_many :devices, dependent: :destroy
-  
+
+  enum sms_notification_frequency: {
+    sms_never: 0,
+    sms_daily: 1  
+  }
+
+  enum email_notification_frequency: {
+    email_never: 0,
+    email_daily: 1  
+  }
 
   def full_name
     "#{first_name} #{last_name}"

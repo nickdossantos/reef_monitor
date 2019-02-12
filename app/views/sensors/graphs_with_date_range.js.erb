@@ -1,3 +1,3 @@
 var line_chart = Chartkick.charts["readings_line_chart"];
-var line_data = <%= @money_collected_chart_data.to_json.html_safe %>;
+var line_data = <%= @sensor_param_data.to_json.html_safe %>;
 line_chart.updateData(line_data);

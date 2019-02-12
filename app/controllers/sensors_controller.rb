@@ -68,19 +68,44 @@ class SensorsController < ApplicationController
   def sensor_reading_data
     @sensor = Sensor.friendly.find(params[:sensor_id])
     data = get_graph_data_with_range
-    render json: Reading.send(data['method_name'], *data['opts']).where("user_id = ? AND sensor_id = ?", @user.id, @sensor.id).average("value")
+      render json: Reading.send(data['method_name'], *data['opts']).where("user_id = ? AND sensor_id = ?", @user.id, @sensor.id).average("value")
+  end
+
+  # Graph with date ranges
+  def graphs_with_date_range
+    @sensor = Sensor.friendly.find(params[:sensor_id])
+    data = get_graph_data_with_range
+    @sensor_param_data = Reading.send(data['method_name'], *data['opts']).where("user_id = ? AND sensor_id = ?", @user.id, @sensor.id).average("value")
   end
 
   # Show Graph for sensors
   def graph
     @sensor = Sensor.friendly.find(params[:sensor_id])
     @tank = @user.tanks.find(params[:tank_id])
+
+    @temp_data = {
+      'readings' => [{
+        'hour' => 8,
+        'reading' => 78 
+      },
+      {
+        'hour' => 9,
+        'reading'=> 78 
+      }
+       ],
+      'average'=> 78
+    }
+    @temp_data.to_json
   end
 
   def get_graph_data_with_range
-    opts = ['created_at', {range: @start_date..@end_date}]
+    opts = ['created_at', {range: @start_date..@end_date, series: false}]
     method_name = :group_by_day
-    if @end_date - (1.year + 2.days) > @start_date
+    # Dynamically changes the syle grouping of the graph Ex. Hour, Day, Month, Year
+    if @end_date.at_end_of_day == @start_date.at_end_of_day
+       opts[1].merge!({format: '%Y%m%d %H'})
+       method_name = :group_by_hour_of_day
+    elsif @end_date - (1.year + 2.days) > @start_date
       opts[1].merge!({format: '%Y'})
       method_name = :group_by_year
     elsif @end_date - (3.month + 2.days) > @start_date
@@ -88,13 +113,6 @@ class SensorsController < ApplicationController
       method_name = :group_by_month
     end
     charts_data = {'method_name' => method_name, 'opts'=> opts}
-end
-
-  # Graph with date ranges
-  def graphs_with_date_range
-    @sensor = Sensor.friendly.find(params[:sensor_id])
-    data = get_graph_data_with_range
-    @money_collected_chart_data = Reading.send(data['method_name'], *data['opts']).where("user_id = ? AND sensor_id = ?", @user.id, @sensor.id).average("value")
   end
 
   private
@@ -113,7 +131,7 @@ end
           1.month.ago.midnight :
           Date.strptime(params[:datepickerStart], "%m/%d/%Y").to_datetime.midnight
       @end_date = params[:datepickerEnd].nil? || params[:datepickerEnd].empty? ?
-          Time.zone.now.at_end_of_day :
+          Time.now.in_time_zone(@user.time_zone).at_end_of_day :
           Date.strptime(params[:datepickerEnd], "%m/%d/%Y").to_datetime.at_end_of_day
       @start_date, @end_date = @end_date, @start_date if @end_date < @start_date
     end
