@@ -3,19 +3,11 @@
 <div class="col-md-12">
     <div class="card card-user">
         <div class="card-header">
-        <h5 class="card-title">Raspberry Pi Setup</h5>
+            <h5 class="card-title">Raspberry Pi Setup</h5>
         </div>
         <div class="card-body">
-        <p id="user_auth_token"><strong>User Auth Token:</strong> <%=@user&.token%></p>
-        <p><%=link_to 'Generate New Auth Token', user_generate_auth_token_path(@user), remote: true, data: { confirm: 'Are you sure you want to generate a new Authentication Token?' }, class: "btn btn-sm-primary"%></p>    
-        <br>
-        <%@user.tanks.each do |tank|%>
-         <p><strong>Tank:</strong> <%=tank.name%></p>
-            <%tank.devices.each do |device|%>
-                <p><strong>Device Name:</strong> <%=device.name%> | <strong>Device Hash:</strong> <%=device.hash_id%></p>
-            <%end%>
-            <br>
-        <%end%>
+            <p id="user_auth_token"><strong>User Auth Token:</strong> <%=@user&.token%></p>
+            <p><%=link_to 'Generate New Auth Token', user_generate_auth_token_path(@user), remote: true, data: { confirm: 'Are you sure you want to generate a new Authentication Token?' }, class: "btn btn-sm-primary"%></p>            
         </div>
     </div>
 </div>
