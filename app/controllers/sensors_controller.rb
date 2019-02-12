@@ -68,7 +68,7 @@ class SensorsController < ApplicationController
   def sensor_reading_data
     @sensor = Sensor.friendly.find(params[:sensor_id])
     data = get_graph_data_with_range
-      render json: Reading.send(data['method_name'], *data['opts']).where("user_id = ? AND sensor_id = ?", @user.id, @sensor.id).count
+      render json: Reading.send(data['method_name'], *data['opts']).where("user_id = ? AND sensor_id = ?", @user.id, @sensor.id).average("value")
   end
 
   # Graph with date ranges
