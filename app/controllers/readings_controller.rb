@@ -31,28 +31,7 @@ class ReadingsController < ApplicationController
     # TODO
     # delagate to service object
     @tank = @user.tanks.find(params[:tank_id])
-    if @reading = Reading.find_by(date: params[:reading][:date])
-      # edit an existing reading column
-      @reading.user_id = @user.id
-      readings_data = @reading.data
-      readings_data = readings_data['readings'] << {
-        'time' => formatted_date_params(params[:reading][:date], params[:hour], params[:minute]),
-        'reading' => params[:reading][:value]
-      }
-      @reading.data['readings'] = readings_data
-    else
-      # make a new reading col
-      @reading = Reading.new(reading_params)
-      @reading.user_id = @user.id
-      @reading.data = {
-        'readings' => [
-          {
-            'time' => formatted_date_params(params[:reading][:date], params[:hour], params[:minute]),
-            'reading' => params[:reading][:value]
-          }
-        ]
-      }
-    end 
+    @reading = ReadingService.format_dates(@user, params[:reading][:date], params[:hour], params[:minute], params[:reading][:value])
     respond_to do |format|
       if @reading.save
         format.js { }
@@ -60,13 +39,6 @@ class ReadingsController < ApplicationController
         format.js { render json: @reading.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def formatted_date_params(date, hour, min)
-    date = DateTime.parse(date)
-    date = date + hour.to_i.hours
-    date = date+ min.to_i.minutes
-    return date
   end
   # PATCH/PUT /readings/1
   # PATCH/PUT /readings/1.json
