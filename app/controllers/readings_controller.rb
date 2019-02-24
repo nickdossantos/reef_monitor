@@ -5,7 +5,10 @@ class ReadingsController < ApplicationController
   # GET /readings.json
   def index
     @tank = @user.tanks.find(params[:tank_id])
-    @readings = @tank.readings.includes(:sensor).order(created_at: :desc).limit(15)    
+    reading_data = []
+    @readings = @tank.readings.includes(:sensor).order(date: :desc).limit(5)
+    
+
     render layout: false
   end
 
@@ -38,6 +41,7 @@ class ReadingsController < ApplicationController
       end
     end
   end
+
   # PATCH/PUT /readings/1`
   # PATCH/PUT /readings/1.json
   def update

@@ -8,21 +8,18 @@ class ReadingService
                 'time' => self.formatted_date_params(date, hour, minute),
                 'reading' => value
             }
+            readings_data["average"] = (readings_data["average"] + value)/readings_data['readings'].length
             @reading.data['readings'] = readings_data
             else
             # make a new reading col
-            @reading = Reading.new()
-            @reading.user_id = user.id
-            @reading.sensor_id = sensor_id
-            @reading.value = value
-            @reading.tank_id = tank_id
-            @reading.date = date
+            @reading = Reading.new(user_id: user.id, sensor_id: sensor_id, value: value, tank_id: tank_id, date: date)        
             @reading.data = {
                 'readings' => [
                 {
                     'time' => formatted_date_params(date, hour, minute),
                     'reading' => value
                 }
+                'average' => value
                 ]
             }
         end 
