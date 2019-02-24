@@ -28,19 +28,17 @@ class ReadingsController < ApplicationController
   # POST /readings
   # POST /readings.json
   def create
-    # TODO
-    # delagate to service object
     @tank = @user.tanks.find(params[:tank_id])
-    @reading = ReadingService.format_dates(@user, params[:reading][:date], params[:hour], params[:minute], params[:reading][:value])
-    respond_to do |format|
-      if @reading.save
+    @reading = ReadingService.format_dates(@user, params[:reading][:date], params[:hour], params[:minute], params[:reading][:value], params[:reading][:sensor_id], params[:reading][:tank_id])
+    respond_to do |format|      
+      if @reading.save!
         format.js { }
       else
         format.js { render json: @reading.errors, status: :unprocessable_entity }
       end
     end
   end
-  # PATCH/PUT /readings/1
+  # PATCH/PUT /readings/1`
   # PATCH/PUT /readings/1.json
   def update
     @tank = @user.tanks.find(params[:tank_id])

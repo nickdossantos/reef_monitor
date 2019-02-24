@@ -1,6 +1,6 @@
 class ReadingService
-    def self.format_dates(user,date, hour, minute, value)
-        if @reading = Reading.find_by(date: date)
+    def self.format_dates(user, date, hour, minute, value, sensor_id, tank_id)
+        if @reading = Reading.find_by(date: date, sensor_id: sensor_id)
             # edit an existing reading column
             @reading.user_id = user.id
             readings_data = @reading.data
@@ -11,8 +11,12 @@ class ReadingService
             @reading.data['readings'] = readings_data
             else
             # make a new reading col
-            @reading = Reading.new(reading_params)
+            @reading = Reading.new()
             @reading.user_id = user.id
+            @reading.sensor_id = sensor_id
+            @reading.value = value
+            @reading.tank_id = tank_id
+            @reading.date = date
             @reading.data = {
                 'readings' => [
                 {
