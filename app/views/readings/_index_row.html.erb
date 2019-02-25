@@ -1,12 +1,13 @@
 <div class="accordion" id="accordion-<%=reading.id%>">
   <div class="card">
-    <div class="card-header" id="heading-<%=reading.id%>">
-      <p class="mb-0">
-        <button class="btn btn-primary btn-sm collapsed" type="button" data-toggle="collapse" data-target="#collapse-<%=reading.id%>" aria-expanded="false" aria-controls="collapse-<%=reading.id%>">
-          Parameter: <%=reading.sensor.name%>
-          Date: <%=reading.date.in_time_zone(@user.time_zone).strftime('%m/%d/%Y %l:%M %p')%> 
-        </button>
-      </p>
+    <div class="card-header btn btn-link"" id="heading-<%=reading.id%>" data-toggle="collapse" data-target="#collapse-<%=reading.id%>" aria-expanded="false" aria-controls="collapse-<%=reading.id%>">
+      <h6 class="mb-2">
+          <i class="fa fa-heartbeat" aria-hidden="true"></i>
+          <%=reading.sensor.name%>
+          &nbsp;
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+          <%=reading.date.in_time_zone(@user.time_zone).strftime('%m/%d/%Y')%>         
+      </h6>
     </div>
     <div id="collapse-<%=reading.id%>" class="collapse" aria-labelledby="heading-<%=reading.id%>" data-parent="#accordion-<%=reading.id%>">
       <div class="card-body">
@@ -31,7 +32,7 @@
                     <tr id="reading-<%= reading.id %>">
                   <%end%>
                     <td><%=data["reading"]%></td>                    
-                    <td class="reading-date"><%= data["time"]%></td>
+                    <td class="reading-date"><%= data["time"].to_datetime.in_time_zone(@user.time_zone).strftime(('%m/%d/%Y %I:%M%p'))%></td>
                     <td class="reading-sensor"><%=reading.sensor.name%></td>
                   </tr>
                 <%end%>
