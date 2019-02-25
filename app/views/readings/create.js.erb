@@ -1,2 +1,7 @@
-$('#user-readings-table-tbody').prepend("<%= j render partial: 'index_row', locals: {reading: @reading} %>")
+var myEle = document.getElementById("accordion-<%=@reading.id%>");
+if (myEle){
+    $('#accordion-<%=@reading.id%>').replaceWith("<%= j render partial: 'reading_acordeon', locals: {reading: @reading} %>");
+}else{
+    $('#card-body-acordeon').append("<%= j render partial: 'reading_acordeon', locals: {reading: @reading} %>");
+}
 $('#readingModal').modal('toggle');

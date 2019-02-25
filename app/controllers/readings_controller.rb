@@ -8,7 +8,6 @@ class ReadingsController < ApplicationController
     reading_data = []
     @readings = @tank.readings.includes(:sensor).order(date: :desc).limit(5)
     
-
     render layout: false
   end
 

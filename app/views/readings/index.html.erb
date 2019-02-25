@@ -16,8 +16,11 @@
               </div>
             </div>      
           </div>
-          <div class="card-body">
-            <%= render partial: 'index_row', collection: @readings, as: :reading %>
+          <div class="card-body" id="card-body-acordeon">
+            <%@readings.each do |reading|%>
+              <%= render partial: 'reading_acordeon', locals: {reading: reading} %>
+            <%end%>
+            <%#= render partial: 'reading_acordeon', collection: @readings, as: :reading %>
           </div>
         </div>
       </div>

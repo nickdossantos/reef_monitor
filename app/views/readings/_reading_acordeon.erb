@@ -6,7 +6,10 @@
           <%=reading.sensor.name%>
           &nbsp;
           <i class="fa fa-calendar" aria-hidden="true"></i>
-          <%=reading.date.in_time_zone(@user.time_zone).strftime('%m/%d/%Y')%>         
+          <%=reading.date.strftime('%m/%d/%Y')%>        
+          &nbsp;
+          Average: 
+          <%=reading.data['average']%> 
       </h6>
     </div>
     <div id="collapse-<%=reading.id%>" class="collapse" aria-labelledby="heading-<%=reading.id%>" data-parent="#accordion-<%=reading.id%>">
@@ -21,7 +24,7 @@
               </tr>
             </thead>
             <tbody id="user-sensors-table-tbody">
-               <%# Delegate to a new partial collection %>
+               <%# Delegate to a new partial collection %>          
                <%if !reading.data.empty?%>
                 <%reading.data["readings"].each do |data| %>
                   <% if data["reading"].to_i <= reading.sensor.low_value || data["reading"].to_i >= reading.sensor.high_value %>
@@ -32,13 +35,14 @@
                     <tr id="reading-<%= reading.id %>">
                   <%end%>
                     <td><%=data["reading"]%></td>                    
-                    <td class="reading-date"><%= data["time"].to_datetime.in_time_zone(@user.time_zone).strftime(('%m/%d/%Y %I:%M%p'))%></td>
+                    <td class="reading-date"><%= data["time"].to_datetime.strftime(('%m/%d/%Y %H:%M%p'))%></td>
                     <td class="reading-sensor"><%=reading.sensor.name%></td>
                   </tr>
                 <%end%>
               <%end%>
             </tbody>
           </table>
+        </div>
       </div>
     </div>
   </div>
