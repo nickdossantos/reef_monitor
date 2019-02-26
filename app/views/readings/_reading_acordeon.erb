@@ -26,7 +26,7 @@
             <tbody id="user-sensors-table-tbody">        
                <%if !reading.data.empty?%>
                   <%reading.data["readings"].each_with_index do |data, index| %>
-                    <%= render partial: 'reading_table_row', locals: {reading: reading, data: data, index: index, user: @user, tank: @tank} %>
+                    <%= render partial: 'readings/reading_table_row', locals: {reading: reading, data: data, index: index, user: @user, tank: @tank} %>
                   <%end%>
               <%end%>                
             </tbody>
