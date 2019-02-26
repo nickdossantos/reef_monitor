@@ -7,7 +7,7 @@ class ReadingService
                 'time' => self.formatted_date_params(date, hour, minute),
                 'reading' => value
             }
-            @reading.data['average'] = (@reading.data['average'].to_i + value.to_i)/(@reading.data['readings'].length)
+            @reading.data['average'] = self.exact_reading_data_average_calculation(@reading)
             else
             # make a new reading col
             @reading = Reading.new(user_id: user.id, sensor_id: sensor_id, value: value, tank_id: tank_id, date: date)        
@@ -36,7 +36,7 @@ class ReadingService
     def self.exact_reading_data_average_calculation(reading)
         total = 0                
         reading.data['readings'].each do |reading|
-            total += reading['reading']
+            total += reading['reading'].to_i
         end
         return (total/reading.data['readings'].length)
     end
