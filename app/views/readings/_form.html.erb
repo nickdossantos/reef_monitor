@@ -22,7 +22,7 @@
     <div class="form-group">
       <%= form.label :value, "Value", class: "col-sm-4 control-lable" %>
       <div class="col-sm-8">
-        <%= form.number_field :value, id: :reading_value, class: "form-control" %>
+        <%= number_field_tag(:value, nil, class: "form-control") %>
       </div>
     </div>
 

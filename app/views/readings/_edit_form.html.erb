@@ -1,4 +1,4 @@
-<%= form_for(reading, url: user_tank_reading_path(@user), remote: true) do |form| %>
+<%= form_for(reading, url: user_tank_reading_update_reading_data_path(@user), remote: true) do |form| %>
   <% if reading.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(reading.errors.count, "error") %> prohibited this reading from being saved:</h2>
@@ -22,7 +22,7 @@
     <div class="form-group">
       <%= form.label :value, "Value", class: "col-sm-4 control-lable" %>
       <div class="col-sm-8">
-        <%= form.number_field :value, id: :reading_value, class: "form-control" %>
+        <%= number_field_tag(:value, reading.data['readings'][index]['reading'], class: "form-control") %>
       </div>
     </div>
 

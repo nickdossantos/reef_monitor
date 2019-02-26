@@ -54,6 +54,24 @@ class ReadingsController < ApplicationController
     end
   end
 
+  def edit_reading_data
+    @reading = Reading.includes(:tank).find(params[:reading_id])
+    @index = params[:index].to_i
+  end 
+
+  def update_reading_data
+
+  end 
+
+  def destroy_data
+    @reading = Reading.includes(:tank).find(params[:reading_id])
+    @index = params[:index]
+    @reading.data['readings'].delete_at(@index.to_i)
+    respond_to do |format|
+      format.js{ }
+    end
+  end
+
   # DELETE /readings/1
   # DELETE /readings/1.json
   def destroy

@@ -1,12 +1,12 @@
 <div class="accordion" id="accordion-<%=reading.id%>">
   <div class="card">
-    <div class="card-header btn btn-link"" id="heading-<%=reading.id%>" data-toggle="collapse" data-target="#collapse-<%=reading.id%>" aria-expanded="false" aria-controls="collapse-<%=reading.id%>">
+    <div class="card-header btn btn-link" id="heading-<%=reading.id%>" data-toggle="collapse" data-target="#collapse-<%=reading.id%>" aria-expanded="false" aria-controls="collapse-<%=reading.id%>">
       <h6 class="mb-2">
           <i class="fa fa-heartbeat" aria-hidden="true"></i>
           <%=reading.sensor.name%>
           &nbsp;
           <i class="fa fa-calendar" aria-hidden="true"></i>
-          <%=reading.date.strftime('%m/%d/%Y')%>        
+          <%=reading.date.strftime('%m/%d/%Y')%>
           &nbsp;
           Average: 
           <%=reading.data['average']%> 
@@ -24,24 +24,35 @@
               </tr>
             </thead>
             <tbody id="user-sensors-table-tbody">
-               <%# Delegate to a new partial collection %>          
+               <%# Delegate to a new partial collection %>
                <%if !reading.data.empty?%>
-                <%reading.data["readings"].each do |data| %>
+                <%reading.data["readings"].each_with_index do |data, index| %>
                   <% if data["reading"].to_i <= reading.sensor.low_value || data["reading"].to_i >= reading.sensor.high_value %>
-                  <tr id="reading-<%= reading.id %>" class="table-danger">
+                    <tr id="reading-<%= reading.id %>-<%=index%>" class="table-danger">
                   <%elsif data["reading"].to_i == reading.sensor.goal_value%>
-                  <tr id="reading-<%= reading.id %>" class="table-success">
+                    <tr id="reading-<%= reading.id %>-<%=index%>" class="table-success">
                   <%else%>
-                    <tr id="reading-<%= reading.id %>">
+                    <tr id="reading-<%= reading.id %>-<%=index%>">
                   <%end%>
                     <td><%=data["reading"]%></td>                    
                     <td class="reading-date"><%= data["time"].to_datetime.strftime(('%m/%d/%Y %H:%M%p'))%></td>
                     <td class="reading-sensor"><%=reading.sensor.name%></td>
+                    <td>
+                      <%= link_to(user_tank_reading_edit_reading_data_path(@user,@tank,reading, index), class: "btn btn-primary btn-sm", remote: true) do %>
+                        <i class="fa fa-pencil"></i>
+                      <%end%>
+                      <%= link_to(user_tank_reading_delete_reading_data_path(@user,@tank,reading, index), data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm", remote: true) do %>
+                        <i class="fa fa-trash"></i>
+                      <%end%>
+                    </td>
                   </tr>
                 <%end%>
               <%end%>
             </tbody>
           </table>
+
+
+          <%= link_to("Remove all", user_tank_reading_path(@user,@tank,reading), method: :delete, remote: true, data: { confirm: 'Are you sure?' },class: "float-right btn btn-danger btn-sm")%>
         </div>
       </div>
     </div>
