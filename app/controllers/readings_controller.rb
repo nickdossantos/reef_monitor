@@ -31,7 +31,7 @@ class ReadingsController < ApplicationController
   # POST /readings.json
   def create
     @tank = @user.tanks.find(params[:tank_id])
-    @reading = ReadingService.format_dates(@user, params[:reading][:date], params[:hour], params[:minute], params[:reading][:value], params[:reading][:sensor_id], params[:reading][:tank_id])
+    @reading = ReadingService.format_dates(@user, params[:reading][:date], params[:hour], params[:minute], params[:value], params[:reading][:sensor_id], params[:reading][:tank_id])
     respond_to do |format|      
       if @reading.save!
         format.js { }
@@ -60,15 +60,28 @@ class ReadingsController < ApplicationController
   end 
 
   def update_reading_data
+    # TODO REFACTOR
     @reading = Reading.includes(:tank).find(params[:reading_id])
-    @reading.data['readings'][params[:index].to_i]['reading'] = params['value']
+    @data = @reading.data['readings'][params[:index].to_i]
+    @tank = @reading.tank_id
+    @index = params[:index].to_i
+    @reading.data['readings'][params[:index].to_i]['reading'] = params['value']    
     @reading.save!
+    respond_to do |format|
+      format.js{ }
+    end
   end 
 
   def destroy_data
     @reading = Reading.includes(:tank).find(params[:reading_id])
-    @index = params[:index]
-    @reading.data['readings'].delete_at(@index.to_i)
+    # If user decides to delete the last reading in the set the entire Reading object will be removed. 
+    @index = params[:index].to_i
+    if(@index == 0)
+      @reading.destroy
+    else
+      @reading.data['readings'].delete_at(@index)
+    end
+
     respond_to do |format|
       format.js{ }
     end

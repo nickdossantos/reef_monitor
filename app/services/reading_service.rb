@@ -28,4 +28,16 @@ class ReadingService
         date = date+ min.to_i.minutes
         return date
     end
+
+    def self.calculate_reading_data_average(current_average, new_reading_value, reading_array_length)
+        return (current_average + value)/(reading_array_length)
+    end
+
+    def self.exact_reading_data_average_calculation(reading)
+        total = 0                
+        reading.data['readings'].each do |reading|
+            total += reading['reading']
+        end
+        return (total/reading.data['readings'].length)
+    end
 end 

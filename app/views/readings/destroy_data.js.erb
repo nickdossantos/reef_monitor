@@ -1,1 +1,8 @@
-$('#reading-<%=@reading.id%>-<%=@index%>').remove();
+var index = '<%=@index%>';
+if (index == 0){
+    console.log(" I am in the if statement");
+    $('#accordion-<%=@reading.id%>').remove();    
+}else{
+    console.log(" I am over here");
+    $('#reading-<%=@reading.id%>-<%=@index%>').remove();
+}
