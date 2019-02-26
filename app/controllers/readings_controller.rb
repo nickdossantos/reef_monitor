@@ -60,7 +60,9 @@ class ReadingsController < ApplicationController
   end 
 
   def update_reading_data
-
+    @reading = Reading.includes(:tank).find(params[:reading_id])
+    @reading.data['readings'][params[:index].to_i]['reading'] = params['value']
+    @reading.save!
   end 
 
   def destroy_data

@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       end
       resources :readings do
         get 'edit_reading_data/:index', to: 'readings#edit_reading_data', as: 'edit_reading_data'
-        get 'update_reading_data', to: 'readings#update_reading_data', as: 'update_reading_data'
+        patch 'update_reading_data', to: 'readings#update_reading_data', as: 'update_reading_data'
         get 'delete_reading_data/:index', to: 'readings#destroy_data', as: 'delete_reading_data'
       end 
       resources :devices do
