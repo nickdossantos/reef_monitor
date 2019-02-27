@@ -1,0 +1,12 @@
+<div class="mb-2" id="accordion_header-<%=reading.id%>">
+    <h6>
+        <i class="fa fa-heartbeat" aria-hidden="true"></i>
+        <%=reading.sensor.name%>    
+        &nbsp;
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+        <%=reading.date.strftime('%m/%d/%Y')%>
+        &nbsp;
+        Average: 
+        <%=reading.data['average']%> 
+    </h6>
+</div>

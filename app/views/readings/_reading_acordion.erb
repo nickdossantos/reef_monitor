@@ -1,16 +1,7 @@
 <div class="accordion" id="accordion-<%=reading.id%>">
   <div class="card">
     <div class="card-header btn btn-link" id="heading-<%=reading.id%>" data-toggle="collapse" data-target="#collapse-<%=reading.id%>" aria-expanded="false" aria-controls="collapse-<%=reading.id%>">
-      <h6 class="mb-2">
-          <i class="fa fa-heartbeat" aria-hidden="true"></i>
-          <%=reading.sensor.name%>
-          &nbsp;
-          <i class="fa fa-calendar" aria-hidden="true"></i>
-          <%=reading.date.strftime('%m/%d/%Y')%>
-          &nbsp;
-          Average: 
-          <%=reading.data['average']%> 
-      </h6>
+      <%= render partial: 'readings/acordion_header', locals: {reading: reading} %>
     </div>
     <div id="collapse-<%=reading.id%>" class="collapse" aria-labelledby="heading-<%=reading.id%>" data-parent="#accordion-<%=reading.id%>">
       <div class="card-body">

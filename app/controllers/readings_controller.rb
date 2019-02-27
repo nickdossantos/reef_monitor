@@ -60,7 +60,6 @@ class ReadingsController < ApplicationController
   end 
 
   def update_reading_data
-    # TODO REFACTOR
     @reading = Reading.find(params[:reading_id])
     @reading = ReadingService.update_reading_data_object(@reading, params[:index].to_i, params[:value], params[:hour], params[:minute])
     # helper values for page
@@ -82,11 +81,13 @@ class ReadingsController < ApplicationController
   def destroy_data
     @reading = Reading.includes(:tank).find(params[:reading_id])
     # If user decides to delete the last data[reading] in the set the entire Reading object will be removed. 
-    @index = params[:index].to_i
-    if(@index == 0)
-      @reading.destroy
-    else
+    @index = params[:index].to_i    
+    if @reading.data['readings'].length > 1
       @reading.data['readings'].delete_at(@index)
+      @reading.data['average'] = ReadingService.exact_reading_data_average_calculation(@reading)
+      @reading.save!
+    else
+      @reading.destroy
     end
     respond_to do |format|
       format.js{ }

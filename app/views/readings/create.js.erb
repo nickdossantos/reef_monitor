@@ -1,7 +1,7 @@
 var myEle = document.getElementById("accordion-<%=@reading.id%>");
 if (myEle){
-    $('#accordion-<%=@reading.id%>').replaceWith("<%= j render partial: 'reading_acordeon', locals: {reading: @reading} %>");
+    $('#accordion-<%=@reading.id%>').replaceWith("<%= j render partial: 'reading_acordion', locals: {reading: @reading} %>");
 }else{
-    $('#card-body-acordeon').append("<%= j render partial: 'reading_acordeon', locals: {reading: @reading} %>");
+    $('#card-body-acordeon').append("<%= j render partial: 'reading_acordion', locals: {reading: @reading} %>");
 }
 $('#readingModal').modal('toggle');
