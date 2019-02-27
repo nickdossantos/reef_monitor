@@ -31,7 +31,7 @@ class ReadingsController < ApplicationController
   # POST /readings.json
   def create
     @tank = @user.tanks.find(params[:tank_id])
-    @reading = ReadingService.format_dates(@user, params[:reading][:date], params[:hour], params[:minute], params[:value], params[:reading][:sensor_id], params[:reading][:tank_id])
+    @reading = ReadingService.create_reading(@user, params[:reading][:date], params[:hour], params[:minute], params[:value], params[:reading][:sensor_id], params[:reading][:tank_id])
     respond_to do |format|      
       if @reading.save!
         format.js { }
@@ -61,27 +61,33 @@ class ReadingsController < ApplicationController
 
   def update_reading_data
     # TODO REFACTOR
-    @reading = Reading.includes(:tank).find(params[:reading_id])
+    @reading = Reading.find(params[:reading_id])
+    @reading = ReadingService.update_reading_data_object(@reading, params[:index].to_i, params[:value], params[:hour], params[:minute])
+    # helper values for page
     @data = @reading.data['readings'][params[:index].to_i]
     @tank = @reading.tank_id
     @index = params[:index].to_i
-    @reading.data['readings'][params[:index].to_i]['reading'] = params['value']    
-    @reading.save!
-    respond_to do |format|
-      format.js{ }
+
+    respond_to do |format|      
+      if @reading.save!
+        format.js { }
+      else
+        format.js { render json: @reading.errors, status: :unprocessable_entity }
+      end
     end
   end 
 
+  # create up update reading data method method. updated only the data field of the object's data.. saves data. 
+
   def destroy_data
     @reading = Reading.includes(:tank).find(params[:reading_id])
-    # If user decides to delete the last reading in the set the entire Reading object will be removed. 
+    # If user decides to delete the last data[reading] in the set the entire Reading object will be removed. 
     @index = params[:index].to_i
     if(@index == 0)
       @reading.destroy
     else
       @reading.data['readings'].delete_at(@index)
     end
-
     respond_to do |format|
       format.js{ }
     end
