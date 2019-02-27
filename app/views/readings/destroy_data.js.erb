@@ -1,8 +1,7 @@
-var index = '<%=@index%>';
-if (index == 0){
-    console.log(" I am in the if statement");
+var size = '<%=@reading.data["readings"].length%>';
+if (size == 0){
     $('#accordion-<%=@reading.id%>').remove();    
 }else{
-    console.log(" I am over here");
+    $('#accordion_header-<%=@reading.id%>').replaceWith("<%= j render partial: 'acordion_header', locals: {reading: @reading} %>");
     $('#reading-<%=@reading.id%>-<%=@index%>').remove();
 }

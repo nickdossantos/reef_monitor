@@ -1,2 +1,3 @@
+$('#accordion_header-<%=@reading.id%>').replaceWith("<%= j render partial: 'acordion_header', locals: {reading: @reading} %>");
 $('#reading-<%=@reading.id%>-<%=@index%>').replaceWith("<%= j render partial: 'reading_table_row', locals: {reading: @reading, data: @data, index: @index, user: @user, tank: @tank} %>");
 $('#readingModal').modal('toggle');
