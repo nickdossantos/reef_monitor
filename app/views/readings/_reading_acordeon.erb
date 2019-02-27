@@ -1,0 +1,39 @@
+<div class="accordion" id="accordion-<%=reading.id%>">
+  <div class="card">
+    <div class="card-header btn btn-link" id="heading-<%=reading.id%>" data-toggle="collapse" data-target="#collapse-<%=reading.id%>" aria-expanded="false" aria-controls="collapse-<%=reading.id%>">
+      <h6 class="mb-2">
+          <i class="fa fa-heartbeat" aria-hidden="true"></i>
+          <%=reading.sensor.name%>
+          &nbsp;
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+          <%=reading.date.strftime('%m/%d/%Y')%>
+          &nbsp;
+          Average: 
+          <%=reading.data['average']%> 
+      </h6>
+    </div>
+    <div id="collapse-<%=reading.id%>" class="collapse" aria-labelledby="heading-<%=reading.id%>" data-parent="#accordion-<%=reading.id%>">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+              <tr>
+                <th>Reading Value</th>
+                <th>Date</th>
+                <th>Sensor</th>          
+              </tr>
+            </thead>
+            <tbody id="user-sensors-table-tbody">        
+               <%if !reading.data.empty?%>
+                  <%reading.data["readings"].each_with_index do |data, index| %>
+                    <%= render partial: 'readings/reading_table_row', locals: {reading: reading, data: data, index: index, user: @user, tank: @tank} %>
+                  <%end%>
+              <%end%>                
+            </tbody>
+          </table>
+          <%= link_to("Remove all", user_tank_reading_path(@user,@tank,reading), method: :delete, remote: true, data: { confirm: 'Are you sure?' },class: "float-right btn btn-danger btn-sm")%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

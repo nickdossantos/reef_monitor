@@ -1,0 +1,19 @@
+<% if data["reading"].to_i <= reading.sensor.low_value || data["reading"].to_i >= reading.sensor.high_value %>
+    <tr id="reading-<%= reading.id %>-<%=index%>" class="table-danger">
+<%elsif data["reading"].to_i == reading.sensor.goal_value%>
+    <tr id="reading-<%= reading.id %>-<%=index%>" class="table-success">
+<%else%>
+<tr id="reading-<%= reading.id %>-<%=index%>">
+<%end%>
+    <td><%=data["reading"]%></td>                    
+    <td class="reading-date"><%= data["time"].to_datetime.strftime(('%m/%d/%Y %H:%M%p'))%></td>
+    <td class="reading-sensor"><%=reading.sensor.name%></td>
+    <td>
+        <%= link_to(user_tank_reading_edit_reading_data_path(user,tank,reading, index), class: "btn btn-primary btn-sm", remote: true) do %>
+        <i class="fa fa-pencil"></i>
+        <%end%>
+        <%= link_to(user_tank_reading_delete_reading_data_path(user,tank,reading, index), data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm", remote: true) do %>
+        <i class="fa fa-trash"></i>
+        <%end%>
+    </td>
+</tr>

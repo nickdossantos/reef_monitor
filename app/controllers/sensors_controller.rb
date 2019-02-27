@@ -68,14 +68,21 @@ class SensorsController < ApplicationController
   def sensor_reading_data
     @sensor = Sensor.friendly.find(params[:sensor_id])
     data = get_graph_data_with_range
-      render json: Reading.send(data['method_name'], *data['opts']).where("user_id = ? AND sensor_id = ?", @user.id, @sensor.id).average("value")
+      render json: Reading.send(data['method_name'], *data['opts']).where("user_id = ? AND sensor_id = ?", @user.id, @sensor.id).average("CAST(data->>'average' AS integer)")
   end
 
   # Graph with date ranges
   def graphs_with_date_range
     @sensor = Sensor.friendly.find(params[:sensor_id])
     data = get_graph_data_with_range
-    @sensor_param_data = Reading.send(data['method_name'], *data['opts']).where("user_id = ? AND sensor_id = ?", @user.id, @sensor.id).average("value")
+    if data['method_name'] == :group_by_hour_of_day
+      @reading = Reading.find_by(date: params[:datepickerEnd])
+      @sensor_param_data = []
+      @reading.data['readings'].map { |hash| @sensor_param_data << [hash["time"],hash["reading"]] }
+    else
+      # fix below query to stop averaging the average. 
+      @sensor_param_data = Reading.send(data['method_name'], *data['opts']).where("user_id = ? AND sensor_id = ?", @user.id, @sensor.id).average("CAST(data->>'average' AS integer)")
+    end 
   end
 
   # Show Graph for sensors
@@ -99,7 +106,7 @@ class SensorsController < ApplicationController
   end
 
   def get_graph_data_with_range
-    opts = ['created_at', {range: @start_date..@end_date, series: false}]
+    opts = ['date', {range: @start_date..@end_date, series: false}]
     method_name = :group_by_day
     # Dynamically changes the syle grouping of the graph Ex. Hour, Day, Month, Year
     if @end_date.at_end_of_day == @start_date.at_end_of_day

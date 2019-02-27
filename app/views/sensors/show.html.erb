@@ -1,53 +1,26 @@
-<h4><%=@sensor.name%></h4>
 <div id="user-readings">
   <p id="notice"><%= notice %></p>
+  <h4><%=@sensor.name%></h4>
   <div class="content">
     <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title"> Readings Log</h4>
+            <div class="row">
+              <div class="col-md-9">
+                <h5 class="card-title">Reading Log</h5>
+              </div>
+              <div class="col-md-3">
+                <%= link_to(new_user_tank_reading_path(@user, @tank), class: "btn btn-primary btn-sm", remote: true) do %>
+                  <i class="fa fa-plus"></i> Add New
+                <% end %>              
+              </div>
+            </div>      
           </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table">
-                <thead class=" text-primary">
-                  <tr>
-                    <th>Value</th>
-                    <th>Goal Value</th>
-                    <th>Date</th>
-                    <th><%=link_to(new_user_tank_reading_path(@user, @sensor.tank), class: "btn btn-primary btn-sm", remote: true) do %>
-                          <i class="fa fa-plus"></i> Add New
-                        <%end%>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody id="user-readings-table-tbody">
-                  <%@readings.each do |reading|%>
-                    <% if reading.value <= reading.sensor.low_value || reading.value >= reading.sensor.high_value %>
-                    <tr id="reading-<%= reading.id %>" class="table-danger">
-                    <%elsif reading.value == reading.sensor.goal_value%>
-                    <tr id="reading-<%= reading.id %>" class="table-success">
-                    <%else%>
-                      <tr id="reading-<%= reading.id %>">
-                    <%end%>
-                      <td class="reading-value"><%= reading.value%></td>
-                      <td class="reading-sensor_goal_value"><%= reading.sensor.goal_value %></td>              
-                      <td class="reading-date"><%= reading.date&.strftime("%d/%m/%Y") %></td>
-                      <td>
-                        <%=link_to(edit_user_tank_reading_path(@user,reading.tank,reading), class: "btn btn-primary btn-sm", remote: true) do %>
-                          <i class="fa fa-pencil"></i>
-                        <%end%>
-
-                        <%=link_to(user_tank_reading_path(@user,reading.tank,reading), method: :delete, remote: true, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm") do %>
-                            <i class="fa fa-trash"></i>
-                        <%end%>
-                      </td>
-                    </tr>
-                  <%end%>
-                </tbody>
-              </table>
-            </div>
+          <div class="card-body" id="card-body-acordeon">
+            <%@readings.each do |reading|%>
+              <%= render partial: 'readings/reading_acordeon', locals: {reading: reading} %>
+            <%end%>
           </div>
         </div>
       </div>
@@ -56,6 +29,5 @@
   <br>
 </div>
 
-<%= render 'reading_modal'%>
 
-<%=paginate @readings%>
+<%= render 'dashboard/reading_modal'%>

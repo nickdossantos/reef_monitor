@@ -5,29 +5,21 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title"> Readings Log</h4>
+            <div class="row">
+              <div class="col-md-9">
+                <h4 class="card-title">Reading Log</h4>
+              </div>
+              <div class="col-md-3">
+                <%= link_to(new_user_tank_reading_path(@user, @tank), class: "btn btn-primary btn-sm", remote: true) do %>
+                  <i class="fa fa-plus"></i> Add New
+                <% end %>              
+              </div>
+            </div>      
           </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table">
-                <thead class=" text-primary">
-                  <tr>
-                    <th>Value</th>
-                    <th>Goal Value</th>
-                    <th>Sensor</th>
-                    <th>Date</th>
-                    <th>Created</th>
-                    <th><%= link_to(new_user_tank_reading_path(@user, @tank), class: "btn btn-primary btn-sm", remote: true) do %>
-                          <i class="fa fa-plus"></i> Add New
-                        <% end %>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody id="user-readings-table-tbody">
-                  <%= render partial: 'index_row', collection: @readings, as: :reading %>
-                </tbody>
-              </table>
-            </div>
+          <div class="card-body" id="card-body-acordeon">
+            <%@readings.each do |reading|%>
+              <%= render partial: 'reading_acordeon', locals: {reading: reading} %>
+            <%end%>
           </div>
         </div>
       </div>

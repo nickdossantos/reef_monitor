@@ -20,7 +20,11 @@ Rails.application.routes.draw do
         post '/date_ranges', to: 'sensors#graphs_with_date_range', as: 'graphs_with_date_range'
         get '/sensor_reading_data', to: 'sensors#sensor_reading_data', as: 'sensor_reading_data'
       end
-      resources :readings
+      resources :readings do
+        get 'edit_reading_data/:index', to: 'readings#edit_reading_data', as: 'edit_reading_data'
+        patch 'update_reading_data', to: 'readings#update_reading_data', as: 'update_reading_data'
+        get 'delete_reading_data/:index', to: 'readings#destroy_data', as: 'delete_reading_data'
+      end 
       resources :devices do
         get 'turn_on', to: 'devices#turn_on_device', as: 'turn_on_device'
         get 'turn_off', to: 'devices#turn_off_device', as: 'turn_off_device'

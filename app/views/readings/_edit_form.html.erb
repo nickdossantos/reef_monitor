@@ -1,4 +1,4 @@
-<%= form_for(reading, url: user_tank_reading_path(@user), remote: true) do |form| %>
+<%= form_for(reading, url: user_tank_reading_update_reading_data_path(@user), remote: true) do |form| %>
   <% if reading.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(reading.errors.count, "error") %> prohibited this reading from being saved:</h2>
@@ -22,21 +22,35 @@
     <div class="form-group">
       <%= form.label :value, "Value", class: "col-sm-4 control-lable" %>
       <div class="col-sm-8">
-        <%= form.number_field :value, id: :reading_value, class: "form-control" %>
+        <%= number_field_tag(:value, reading.data['readings'][index]['reading'], class: "form-control") %>
       </div>
     </div>
 
     <div class="form-group">
       <%= form.label :date, "Date", class: "col-sm-4 control-lable" %>
       <div class="col-sm-8">
-        <%= form.date_field :date, id: :reading_date, class: "form-control" %>
+        <%= form.date_field :date, id: :reading_date, class: "form-control", disabled: true %>
       </div>
+    </div>
+
+    <div class="form-group">
+        <%= form.label :hour, "Hour", class: "col-sm-4 control-lable"%>
+        <div class="col-sm-8">
+          <%= select_tag(:hour, options_for_select( (01..24).step(1).to_a.map{|s| (s > 11?["#{s} PM", s.to_i] : ["#{s} AM", s.to_i])}, reading.data['readings'][index]['time'].to_datetime.strftime("%H").to_i), {class:"form-control"})%>       
+        </div>
+    </div>
+
+     <div class="form-group">
+        <%= form.label :hour, "Minute", class: "col-sm-4 control-lable"%>
+        <div class="col-sm-8">
+          <%= select_tag(:minute, options_for_select( (00..59).step(1).to_a.map{|s| [s]},  reading.data['readings'][index]['time'].to_datetime.strftime("%M").to_i), {class:"form-control"})%>       
+        </div>
     </div>
 
     <div class="form-group">
       <%= form.label :sensor, "Sensor", class: "col-sm-4 control-lable" %>
       <div class="col-sm-8">
-        <%= form.collection_select :sensor_id, reading.tank.sensors, :id, :name, class: "form-control" %>
+        <%= form.collection_select :sensor_id, reading.tank.sensors, :id, :name, {}, {class: "form-control", disabled: true} %>
       </div>
     </div>
 
@@ -50,6 +64,7 @@
     </div>
 
     <%=form.hidden_field :tank_id, value: reading.tank.id%>
+    <%=hidden_field_tag('index', index)%>
 
   </div>
   <div class="modal-footer">
