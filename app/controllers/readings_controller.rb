@@ -87,6 +87,7 @@ class ReadingsController < ApplicationController
       @reading.data['average'] = ReadingService.exact_reading_data_average_calculation(@reading)
       @reading.save!
     else
+      @reading.data['readings'].delete_at(@index)
       @reading.destroy
     end
     respond_to do |format|

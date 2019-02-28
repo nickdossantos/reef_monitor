@@ -1,6 +1,5 @@
-var size = '<%=@reading.data["readings"].length%>';
-console.log(size);
-if (size  <= 1){
+var length = '<%=@reading.data["readings"].length%>';
+if (Number(length) == 0){
     $('#accordion-<%=@reading.id%>').remove();    
 }else{
     $('#accordion_header-<%=@reading.id%>').replaceWith("<%= j render partial: 'acordion_header', locals: {reading: @reading} %>");
