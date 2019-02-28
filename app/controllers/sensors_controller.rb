@@ -79,8 +79,8 @@ class SensorsController < ApplicationController
         @sensor_param_data = []
         @reading.data['readings'].map { |hash| @sensor_param_data << [hash["time"].to_datetime.strftime('%m/%d %H:%M %p'),hash["reading"].to_i] }
     else
-      # fix below query to stop averaging the average. 
-      @sensor_param_data = Reading.send(data['method_name'], *data['opts']).where("user_id = ? AND sensor_id = ?", @user.id, @sensor.id).average("CAST(data->>'average' AS integer)")
+      # fix below query to stop averaging the average. work around is calcualting the sum 
+      @sensor_param_data = Reading.send(data['method_name'], *data['opts']).where("user_id = ? AND sensor_id = ?", @user.id, @sensor.id).sum("CAST(readings.data->>'average' AS integer)")
     end 
   end
 
@@ -127,8 +127,5 @@ class SensorsController < ApplicationController
           Time.now.in_time_zone(@user.time_zone).at_end_of_day :
           Date.strptime(params[:datepickerEnd], "%m/%d/%Y").to_datetime.midnight
       @start_date, @end_date = @end_date, @start_date if @end_date < @start_date
-
-      puts @start_date,"this is the start"
-      puts @end_date,"this is the end"
     end
 end
