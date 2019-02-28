@@ -75,11 +75,9 @@ class SensorsController < ApplicationController
   def graphs_with_date_range
     @sensor = Sensor.friendly.find(params[:sensor_id])
     data = get_graph_data_with_range
-    if data['method_name'] == :group_by_hour_of_day
-      if @reading = Reading.find_by(date: params[:datepickerEnd])
+    if data['method_name'] == :group_by_hour_of_day && @reading = Reading.find_by(date: params[:datepickerEnd])      
         @sensor_param_data = []
-        @reading.data['readings'].map { |hash| @sensor_param_data << [hash["time"],hash["reading"]] }
-      end 
+        @reading.data['readings'].map { |hash| @sensor_param_data << [hash["time"].to_datetime.strftime('%m/%d %H:%M %p'),hash["reading"].to_i] }
     else
       # fix below query to stop averaging the average. 
       @sensor_param_data = Reading.send(data['method_name'], *data['opts']).where("user_id = ? AND sensor_id = ?", @user.id, @sensor.id).average("CAST(data->>'average' AS integer)")
@@ -110,8 +108,9 @@ class SensorsController < ApplicationController
     opts = ['date', {range: @start_date..@end_date, series: false}]
     method_name = :group_by_day
     # Dynamically changes the syle grouping of the graph Ex. Hour, Day, Month, Year
+    # :group_by_day opts are not needed.
     if @end_date.at_end_of_day == @start_date.at_end_of_day
-       opts[1].merge!({format: '%Y%m%d %H'})
+       opts[1].merge!({format: '%Y%m%d %H%M'})
        method_name = :group_by_hour_of_day
     elsif @end_date - (1.year + 2.days) > @start_date
       opts[1].merge!({format: '%Y'})
