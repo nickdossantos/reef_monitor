@@ -88,20 +88,6 @@ class SensorsController < ApplicationController
   def graph
     @sensor = Sensor.friendly.find(params[:sensor_id])
     @tank = @user.tanks.find(params[:tank_id])
-
-    @temp_data = {
-      'readings' => [{
-        'hour' => 8,
-        'reading' => 78 
-      },
-      {
-        'hour' => 9,
-        'reading'=> 78 
-      }
-       ],
-      'average'=> 78
-    }
-    @temp_data.to_json
   end
 
   def get_graph_data_with_range
@@ -139,7 +125,10 @@ class SensorsController < ApplicationController
           Date.strptime(params[:datepickerStart], "%m/%d/%Y").to_datetime.midnight
       @end_date = params[:datepickerEnd].nil? || params[:datepickerEnd].empty? ?
           Time.now.in_time_zone(@user.time_zone).at_end_of_day :
-          Date.strptime(params[:datepickerEnd], "%m/%d/%Y").to_datetime.at_end_of_day
+          Date.strptime(params[:datepickerEnd], "%m/%d/%Y").to_datetime.midnight
       @start_date, @end_date = @end_date, @start_date if @end_date < @start_date
+
+      puts @start_date,"this is the start"
+      puts @end_date,"this is the end"
     end
 end
