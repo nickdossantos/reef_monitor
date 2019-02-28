@@ -76,9 +76,10 @@ class SensorsController < ApplicationController
     @sensor = Sensor.friendly.find(params[:sensor_id])
     data = get_graph_data_with_range
     if data['method_name'] == :group_by_hour_of_day
-      @reading = Reading.find_by(date: params[:datepickerEnd])
-      @sensor_param_data = []
-      @reading.data['readings'].map { |hash| @sensor_param_data << [hash["time"],hash["reading"]] }
+      if @reading = Reading.find_by(date: params[:datepickerEnd])
+        @sensor_param_data = []
+        @reading.data['readings'].map { |hash| @sensor_param_data << [hash["time"],hash["reading"]] }
+      end 
     else
       # fix below query to stop averaging the average. 
       @sensor_param_data = Reading.send(data['method_name'], *data['opts']).where("user_id = ? AND sensor_id = ?", @user.id, @sensor.id).average("CAST(data->>'average' AS integer)")
