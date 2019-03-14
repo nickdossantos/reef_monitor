@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
+    post '/verify_pin_number', to: 'users#verify_pin_number', as: 'verify_pin_number'
     post '/readings/:token', to: 'readings#create', constraints: { token: %r{[^\/]+} }
   end
 

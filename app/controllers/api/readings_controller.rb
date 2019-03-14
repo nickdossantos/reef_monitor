@@ -26,6 +26,16 @@ class Api::ReadingsController < ApplicationController
         
     end 
 
+    def verify_pin_number
+        puts "I am in the pin controller"
+        begin 
+            puts params[:pin_number], "this is the pin number"
+        rescue => e 
+            render json: {status: "FAIL", message: e}, status: :ok
+        end
+        
+    end 
+
     private
     def decode_token
        @decoded_data = Jsonwebtoken.decode(params[:token])
