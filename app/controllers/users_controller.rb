@@ -82,6 +82,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def generate_temporary_pin_token
+    @user = User.friendly.find(params[:user_id])
+    pin_token = SecureRandom.hex(3)
+    loop do
+      pin_token = SecureRandom.hex(3)
+      break unless @user.class.name.constantize.where(:temporary_pin_token => pin_token).exists?
+    end
+    @user.temporary_pin_token = pin_token
+    @user.temporary_pin_token_expiration_date = Time.now.in_time_zone(@user.time_zone) + 1.day
+    begin
+      @user.save  
+    rescue => exception
+      puts exception
+    end
+  end 
+
   def turn_off_relay 
     @user = User.friendly.find(params[:user_id])
     # post to web app route to turn off relay

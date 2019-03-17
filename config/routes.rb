@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get 'turn_on_relay', to:'users#turn_on_relay', as: 'turn_on_relay'
     get 'notifications', to:'users#notifications', as: 'notifications'
     get 'generate_auth_token', to:'users#generate_auth_token', as: 'generate_auth_token'
+    get 'generate_temporary_pin_token', to:'users#generate_temporary_pin_token', as: 'generate_temporary_pin_token'
     get '/raspberry_pi', to: 'users#raspberry_pi', as: 'raspberry_pi'
     get '/devices/control', to:'devices#device_control', as: 'device_control'
     resources :tanks do
