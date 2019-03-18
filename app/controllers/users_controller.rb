@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [ :edit, :update, :destroy]
-
   # GET /users
   # GET /users.json
   def index
@@ -16,7 +15,8 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = user.new
+    @user = User.new
+    render layout: 'authentication'
   end
 
   # GET /users/1/edit
@@ -27,7 +27,6 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = user.new(user_params)
-    @user.user_id = @user.id
     respond_to do |format|
       if @user.save
         format.js { }
@@ -36,6 +35,7 @@ class UsersController < ApplicationController
         format.js { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+    
   end
 
   # PATCH/PUT /users/1
@@ -65,21 +65,6 @@ class UsersController < ApplicationController
 
   def notifications
     @user = User.friendly.find(params[:user_id])
-  end
-
-  def generate_auth_token
-    @user = User.friendly.find(params[:user_id])
-    token = SecureRandom.hex
-    loop do
-      token = SecureRandom.hex
-      break unless @user.class.name.constantize.where(:token => token).exists?
-    end
-    @user.token = token 
-    begin
-      @user.save  
-    rescue => exception
-      puts exception
-    end
   end
 
   def generate_temporary_pin_token

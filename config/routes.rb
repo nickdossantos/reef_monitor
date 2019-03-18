@@ -5,11 +5,13 @@ Rails.application.routes.draw do
   get 'pages/tanks', to:'pages#tanks', as:'pages_tanks'
 
   get 'user/:id/dashboard/tank/:tank_id', to:'dashboard#show', as: 'dashboard'
+  get 'users/1/new', to: 'registrations#new'
+  post 'users/1/create', to: 'registrations#create', as: 'create_user_registration'
   resources :users do
     get 'turn_off_relay', to:'users#turn_off_relay', as: 'turn_off_relay'
     get 'turn_on_relay', to:'users#turn_on_relay', as: 'turn_on_relay'
     get 'notifications', to:'users#notifications', as: 'notifications'
-    get 'generate_auth_token', to:'users#generate_auth_token', as: 'generate_auth_token'
+    #get 'generate_auth_token', to:'users#generate_auth_token', as: 'generate_auth_token'
     get 'generate_temporary_pin_token', to:'users#generate_temporary_pin_token', as: 'generate_temporary_pin_token'
     get '/raspberry_pi', to: 'users#raspberry_pi', as: 'raspberry_pi'
     get '/devices/control', to:'devices#device_control', as: 'device_control'

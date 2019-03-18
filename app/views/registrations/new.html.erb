@@ -2,8 +2,7 @@
   <div class="form-horizontal">
     <h2 class="center">Sign up</h2>
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= devise_error_messages! %>
+    <%= form_for @user, url: create_user_registration_path() do |f| %>
       <div class="form-group row">
         <div class="col-sm-4">
           <%= f.label :email, class: "control-label"%><br />
@@ -40,7 +39,8 @@
     <% end %>
 
     <div class="right">
-      <%= render "devise/shared/links"%>
+      <%= link_to "Sign in", new_session_path(:user) %><br />
+      <%= link_to "Forgot Password", new_user_password_path(:user) %><br />
     </div>
   </div>
 </div>

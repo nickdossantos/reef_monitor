@@ -37,7 +37,10 @@
         <% end %>
         <div class="col-sm-6 right">
           <div class="form-group">
-            <%= render "devise/shared/links" %>
+            <div class="right">
+              <%= link_to "Sign Up", users_1_new_path() %><br />
+              <%= link_to "Forgot Password", new_user_password_path(:user) %><br />
+            </div>
           </div>
         </div>
       </div>
