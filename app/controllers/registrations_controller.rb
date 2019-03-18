@@ -13,6 +13,7 @@ class RegistrationsController < ApplicationController
             sign_in @user
             redirect_to pages_tanks_path()
         else
+            # change the below
             format.js { render :new }
             format.js { render json: @user.errors, status: :unprocessable_entity }
         end
