@@ -6,7 +6,8 @@
             <h5 class="card-title">Raspberry Pi Setup</h5>
         </div>
         <div class="card-body">
-            <p id="user_auth_token"><strong>User Pin Token:</strong> <%=@user&.temporary_pin_token%></p>
+            <p id="user_temporary_pin_token"><strong>User Pin Token:</strong> <%=@user&.temporary_pin_token%></p>
+            <p id="user_temporary_pin_token_expiration_date"><strong>Expires:</strong> <%=@user&.temporary_pin_token_expiration_date%></p>
             <p><%=link_to 'Generate Pin Token: ', user_generate_temporary_pin_token_path(@user), remote: true, data: { confirm: 'Are you sure you want to generate a new Pin Token?' }, class: "btn btn-sm-primary"%></p>            
         </div>
     </div>
