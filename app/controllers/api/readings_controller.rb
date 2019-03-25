@@ -4,17 +4,12 @@ class Api::ReadingsController < ApplicationController
     
     def create
         begin 
-            decoded_data = Jsonwebtoken.decode(params[:token])
+            decoded_data = Jsonwebtoken.decode(params[:jwt_token])
             payload = decoded_data[0]
             user = User.find_by(hash_id: payload['user'])
             sensor = Sensor.find_by(hash_id: payload['sensor'])
-            # update readings. Post readings once an hour from Pi. 
-            reading = Reading.new
-            reading.user_id = user.id
-            reading.sensor_id = sensor.id
-            reading.date = payload['date']
-            reading.value = payload['value'].to_i
-            reading.tank_id = sensor.tank.id
+            
+            reading = ReadingService.create_reading(user, payload['date'], payload['hour'], payload['minute'], payload['value'], sensor.id, sensor.tank_id)
             if reading.save
                 render json: {status: "SUCCESS", message: 'Your token has been decoded.', data: decoded_data}, status: :ok
             else 

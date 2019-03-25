@@ -1,17 +1,17 @@
 class ReadingService
     def self.create_reading(user, date, hour, minute, value, sensor_id, tank_id)
         # edit an existing reading column
-        if @reading = Reading.find_by(date: date, sensor_id: sensor_id)            
-            @reading.user_id = user.id
-            @reading.data['readings'] << {
+        if reading = Reading.find_by(date: date, sensor_id: sensor_id)            
+            reading.user_id = user.id
+            reading.data['readings'] << {
                 'time' => self.formatted_date_params(date, hour, minute),
                 'reading' => value
             }
-            @reading.data['average'] = self.exact_reading_data_average_calculation(@reading)
+            reading.data['average'] = self.exact_reading_data_average_calculation(reading)
         # make a new reading col
         else            
-        @reading = Reading.new(user_id: user.id, sensor_id: sensor_id, tank_id: tank_id, date: date)        
-        @reading.data = {
+        reading = Reading.new(user_id: user.id, sensor_id: sensor_id, tank_id: tank_id, date: date)        
+        reading.data = {
             'readings' => [{
                 'time' => formatted_date_params(date, hour, minute),
                 'reading' => value
@@ -19,7 +19,7 @@ class ReadingService
             'average' => value
         }
         end 
-        return @reading
+        return reading
     end 
 
     def self.update_reading_data_object(reading, index, value, hour, minute)        
