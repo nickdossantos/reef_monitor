@@ -8,7 +8,7 @@ class Api::ReadingsController < ApplicationController
             payload = decoded_data[0]
             user = User.find_by(hash_id: payload['user'])
             sensor = Sensor.find_by(hash_id: payload['sensor'])
-            
+
             reading = ReadingService.create_reading(user, payload['date'], payload['hour'], payload['minute'], payload['value'], sensor.id, sensor.tank_id)
             if reading.save
                 render json: {status: "SUCCESS", message: 'Your token has been decoded.', data: decoded_data}, status: :ok
@@ -19,10 +19,5 @@ class Api::ReadingsController < ApplicationController
             render json: {status: "FAIL", message: e}, status: :ok
         end
         
-    end 
-
-    private
-    def decode_token
-       @decoded_data = Jsonwebtoken.decode(params[:token])
     end 
 end
