@@ -12,7 +12,7 @@ class Api::UsersController < ApplicationController
                 user.temporary_pin_token = pin_number
                 user.api_endpoint = api_endpoint
                 user.save
-                render json: {status: "SUCCESS", message: 'Your token has been decoded.'}, status: :ok
+                render json: {status: "SUCCESS", message: 'Your Raspbeery Pi has been authenticated.', token: user.token}.to_json
             end
         rescue => e 
             render json: {status: "FAIL", message: e}, status: :ok
