@@ -16,7 +16,8 @@ Rails.application.routes.draw do
     get '/devices/control', to:'devices#device_control', as: 'device_control'
     resources :tanks do
       get '/raspberry_pi', to: 'tanks#raspberry_pi', as: 'raspberry_pi' 
-      get '/tank_sensors', to: 'tanks#tank_sensors', as: 'tank_sensors'     
+      get '/tank_sensors', to: 'tanks#tank_sensors', as: 'tank_sensors'   
+      patch '/update_tank_sensors', to: 'tanks#update_tank_sensors', as: 'update_tank_sensors' 
       resources :sensors do
         get '/graph', to: 'sensors#graph', as: 'graph'
         post '/date_ranges', to: 'sensors#graphs_with_date_range', as: 'graphs_with_date_range'

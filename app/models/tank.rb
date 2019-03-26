@@ -5,6 +5,6 @@ class Tank < ApplicationRecord
   has_many :devices
 
   def has_temp_sensor_configured?
-    (self.temp_sensor_id.present?)
+    (self.temp_sensor_hash.present?)
   end 
 end

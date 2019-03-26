@@ -1,4 +1,4 @@
-<%= form_for(@tank, url: user_tank_path(@user, @tank), remote: true) do |form| %> 
+<%= form_for(@tank, url: user_tank_update_tank_sensors_path(@user, @tank), remote: true) do |form| %> 
 <div id="user-readings">
   <div class="content">
     <div class="row">
@@ -9,8 +9,8 @@
           </div>
           <div class="card-body">
           <div class="form-group">
-              <%= form.label :temp_sensor_id, "Temperature Parameter" %>
-              <%= form.collection_select(:temp_sensor_id, @tank.sensors, :id, :name, {:include_blank => true}, {:class => 'form-control'})%>
+              <%= form.label :temp_sensor_hash, "Temperature Parameter" %>
+              <%= form.collection_select(:temp_sensor_hash, @tank.sensors, :hash_id, :name, {:include_blank => true}, {:class => 'form-control'})%>
           </div>
           <div class="form-group">
               <%= form.label :temp_sensor_id, "Temperature Pin" %>
