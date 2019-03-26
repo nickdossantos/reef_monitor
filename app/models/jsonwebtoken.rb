@@ -1,7 +1,8 @@
 class Jsonwebtoken < ApplicationRecord
     require 'jwt'
     require 'uri'
-  
+
+
     def self.encode_for_get_device_status(user)
       # ==========================================
       # SHARED VALUE BETWEEN APPS
@@ -49,9 +50,23 @@ class Jsonwebtoken < ApplicationRecord
           pin_number: device.pin_number,
           devices: user.devices.map {|device| {id: device.id, pin_number: device.pin_number}}
         }
-      token = JWT.encode payload, hmac_secret, ENV['HASH_ALGORITHM']
+      token = JWT.encode(payload, hmac_secret, ENV['HASH_ALGORITHM'])
       token
     end 
+
+    def self.encode_connected_sensors(user)
+      hmac_secret=ENV['HMAC_SECRET']
+      sensors = []
+      user.tanks.each do |tank|
+        sensors << {:temp_sensor_hash => tank.temp_sensor_hash, :temp_sensor_pin => tank.temp_sensor_pin}
+      end
+      payload = {
+        auth_token: user.token, 
+        sensors: sensors
+      }
+      token = JWT.encode(payload, hmac_secret, ENV['HASH_ALGORITHM'])
+      token
+    end
 
     def self.decode(token)
       # ==========================================
@@ -60,7 +75,6 @@ class Jsonwebtoken < ApplicationRecord
       hmac_secret=ENV['HMAC_SECRET']
       decoded_data = JWT.decode(token, hmac_secret, ENV['HASH_ALGORITHM'])
       decoded_data
-    end
-  
+    end  
   end
   

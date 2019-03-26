@@ -19,5 +19,8 @@
       </div>
     <% end %>
 
-    <%= render "devise/shared/links" %>
+  <div class="right">
+    <%= link_to "Sign Up", users_1_new_path() %><br />
+    <%= link_to "Forgot Password", new_user_password_path(:user) %><br />
+  </div>
 </div>

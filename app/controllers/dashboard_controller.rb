@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
     @tank = @user.tanks.find(params[:tank_id])
     @sensor = @user.sensors.new
     @reading = @user.readings.new
-    if @tank.temp_sensor_id
+    if @tank.temp_sensor_hash
       @temperature_data = TemperatureService.get_temperature(@user, @tank)
     end 
   end
