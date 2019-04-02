@@ -1,2 +1,3 @@
 $('#tank-<%=@tank.id%>').replaceWith("<%= j render partial: 'pages/tank', locals: {tank: @tank} %>");
 $('#tankModal').modal('toggle');
+<%= render partial: '/shared/success_msg'%>

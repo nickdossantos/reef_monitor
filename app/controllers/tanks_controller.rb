@@ -68,7 +68,15 @@ class TanksController < ApplicationController
 
   def reaspberry_pi
     @tank = @user.tanks.find(params[:tank_id])
-    puts @user.first_name
+  end
+
+  def temperature_widget
+    @tank = @user.tanks.find(params[:tank_id])
+    @temperature_data = TemperatureService.get_temperature(@user, @tank)
+    if !@temperature_data
+      flash[:error] = "Could not access pi's temperature sensor."      
+    end
+    render layout: false 
   end
 
   # DELETE /tanks/1

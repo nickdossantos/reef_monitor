@@ -16,10 +16,12 @@
 //= require popper
 //= require Chart.bundle
 //= require chartkick
+//= require toastr
 //= require bootstrap-sprockets
 //= require flatpickr
 //= require jquery-mask-plugin
 //= require_tree .
 
-
 $.jMaskGlobals.watchDataMask = true;
+toastr.options.timeOut = 1500; // How long the toast will display without user interaction
+toastr.options.extendedTimeOut = 800; // How long the toast will display after a user hovers over it

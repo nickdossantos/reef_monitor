@@ -110,5 +110,8 @@
     </div>
 
   </body>
+  <% unless flash.empty? %>
+    <%= render partial: "shared/flash_messages" %>
+  <% end %>
   <%= content_for :render_async %>
 </html>

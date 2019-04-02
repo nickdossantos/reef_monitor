@@ -2,8 +2,8 @@
 
 <h4><%=@tank.name%></h4>
 
-<%if @user.has_api_configured? && @tank.has_temp_sensor_configured? && @temperature_data%>
-    <%= render 'temperature_widget'%>
+<%if @user.has_api_configured? && @tank.has_temp_sensor_configured?%>
+    <%=render 'temperature_widget_section'%>
 <%end%>
 
 <%= render 'sensor_section'%>
@@ -14,3 +14,7 @@
 <%= render 'device_modal'%>
 <%= render 'sensor_modal'%>
 <%= render 'reading_modal'%>
+
+<% unless flash.empty? %>
+    <%= render partial: "shared/flash_messages" %>
+<% end %>
