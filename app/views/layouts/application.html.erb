@@ -31,25 +31,25 @@
             </a>
           </li>
           <li class="<%='active' if @page_tab == "raspberry_pi"%>">
-            <a href="/users/<%=@user.id%>/raspberry_pi">
+            <a href="/users/<%=@user.hash_id%>/raspberry_pi">
               <i class="nc-icon nc-globe"></i>
               <p>Raspberry Pi</p>
             </a>
           </li>
           <li class="<%='active' if @page_tab == "devices"%>">
-            <a href="/users/<%=@user.id%>/devices/control">
+            <a href="/users/<%=@user.hash_id%>/devices/control">
               <i class="nc-icon nc-controller-modern"></i>
               <p>Device Control</p>
             </a>
           </li>
           <li class="<%='active' if @page_tab == "notifications"%>">
-            <a href="/users/<%=@user.id%>/notifications">
+            <a href="/users/<%=@user.hash_id%>/notifications">
               <i class="nc-icon nc-bell-55"></i>
               <p>Notifications</p>
             </a>
           </li>
           <li class="<%='active' if @page_tab == "user_profile"%>">
-            <a href="/users/<%=current_user.id%>/edit">
+            <a href="/users/<%=@user.hash_id%>/edit">
               <i class="nc-icon nc-single-02"></i>
               <p>User Profile</p>
             </a>
