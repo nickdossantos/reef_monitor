@@ -1,2 +1,2 @@
 $('#user_temporary_pin_token').html("<p><strong>User Pin Token:</strong> <%=@user&.temporary_pin_token%></p>");
-$('#user_temporary_pin_token_expiration_date').html("<p><strong>Expires:</strong> <%=@user&.temporary_pin_token_expiration_date%></p>");
+$('#user_temporary_pin_token_expiration_date').html("<p><strong>Expires:</strong> <%=@user&.temporary_pin_token_expiration_date.in_time_zone(@user.time_zone)&.strftime("%m/%d/%Y %I:%M%p")%></p>");
