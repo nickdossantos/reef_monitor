@@ -40,8 +40,6 @@ class TanksController < ApplicationController
   # PATCH/PUT /tanks/1
   # PATCH/PUT /tanks/1.json
   def update
-    # need to update the pi so it knows that sensor's pin to read data from. 
-    # send a post request to the pi with the updated sensor
     respond_to do |format|
       if @tank.update(tank_params)
         format.js {}
@@ -101,6 +99,6 @@ class TanksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tank_params
-      params.require(:tank).permit(:name, :description, :temp_sensor_id, :temp_sensor_pin, :temp_sensor_hash)
+      params.require(:tank).permit(:name, :description, :temp_sensor_id, :temp_sensor_pin, :temp_sensor_hash, :raspberry_pi_endpoint)
     end
 end
