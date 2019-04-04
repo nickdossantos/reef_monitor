@@ -1,22 +1,24 @@
 class ReadingService
-    def self.create_reading(user, date, hour, minute, value, sensor_id, tank_id)
+    def self.create_reading(user, sensor, reading_data)
         # edit an existing reading column
-        if reading = Reading.find_by(date: date, sensor_id: sensor_id)            
+        date = DateTime.now.in_time_zone(user.time_zone)
+        date_with_time = DateTime.now.in_time_zone(user.time_zone).strftime("%d/%m/%Y")
+        if reading = Reading.find_by(date: date.strftime("%d/%m/%Y"), sensor_id: sensor.id)          
             reading.user_id = user.id
             reading.data['readings'] << {
-                'time' => self.formatted_date_params(date, hour, minute),
-                'reading' => value
+                'time' => date,
+                'reading' => reading_data['farenheit']
             }
             reading.data['average'] = self.exact_reading_data_average_calculation(reading)
         # make a new reading col
         else            
-        reading = Reading.new(user_id: user.id, sensor_id: sensor_id, tank_id: tank_id, date: date)        
+        reading = Reading.new(user_id: user.id, sensor_id: sensor.id, tank_id: sensor.tank_id, date: date)        
         reading.data = {
             'readings' => [{
-                'time' => formatted_date_params(date, hour, minute),
-                'reading' => value
+                'time' => date,
+                'reading' => reading_data['farenheit']
             }], 
-            'average' => value
+            'average' => reading_data['farenheit']
         }
         end 
         return reading

@@ -38,7 +38,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     post '/verify_pin_number', to: 'users#verify_pin_number', as: 'verify_pin_number'
-    post '/readings/:token', to: 'readings#create', constraints: { token: %r{[^\/]+} }
+    post '/readings', to: 'readings#create', constraints: { token: %r{[^\/]+} }
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

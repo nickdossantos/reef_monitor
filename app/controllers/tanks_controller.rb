@@ -55,7 +55,7 @@ class TanksController < ApplicationController
     tank = Tank.find(params[:tank_id])
     user = User.friendly.find(params[:user_id])
     if user.has_api_configured?
-      RaspberryPiService.sync_connected_sensors(user)
+      RaspberryPiService.sync_connected_sensors(user, tank)
     end 
     respond_to do |format|
       if tank.update(tank_params)
