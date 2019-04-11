@@ -19,6 +19,8 @@ class User < ApplicationRecord
     email_daily: 1  
   }
 
+  mount_uploader :picture, PictureUploader
+  
   def full_name
     "#{first_name} #{last_name}"
   end
