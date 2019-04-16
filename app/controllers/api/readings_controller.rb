@@ -4,19 +4,22 @@ class Api::ReadingsController < ApplicationController
     
     def create
         begin 
-            decoded_data = Jsonwebtoken.decode(params[:jwt_token])
-            payload = decoded_data[0]
-            user = User.find_by(hash_id: payload['user'])
-            sensor = Sensor.find_by(hash_id: payload['sensor'])
+            decoded_data = Jsonwebtoken.decode(params[:token])
+            payload = decoded_data[0]           
+            puts  payload['auth_token']
+            puts  payload['temp_sensor_hash']
 
-            reading = ReadingService.create_reading(user, payload['date'], payload['hour'], payload['minute'], payload['value'], sensor.id, sensor.tank_id)
+            user = User.find_by(token: payload['auth_token'])
+            sensor = Sensor.find_by(hash_id: payload['temp_sensor_hash'])
+
+            reading = ReadingService.create_reading(user, sensor, payload['reading_data'])
             if reading.save
                 render json: {status: "SUCCESS", message: 'Your reading has been created.', data: decoded_data}, status: :ok
             else 
-                render json: {status: "FAIL", message: 'Your token has not been decoded.'}, status: :ok
+                render json: {status: "FAIL", message: 'Your token has not been decoded.', data: decoded_data}, status: :ok
             end 
         rescue => e 
-            render json: {status: "FAIL", message: e}, status: :ok
+            render json: {status: "FAIL", message: e, data: decoded_data}, status: :ok
         end        
     end 
 end

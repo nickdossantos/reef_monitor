@@ -16,7 +16,8 @@ Rails.application.routes.draw do
     get '/devices/control', to:'devices#device_control', as: 'device_control'
     resources :tanks do
       get '/raspberry_pi', to: 'tanks#raspberry_pi', as: 'raspberry_pi' 
-      get '/tank_sensors', to: 'tanks#tank_sensors', as: 'tank_sensors'   
+      get '/tank_sensors', to: 'tanks#tank_sensors', as: 'tank_sensors' 
+      get '/temperature_widget', to:'tanks#temperature_widget', as: 'temperature_widget'
       patch '/update_tank_sensors', to: 'tanks#update_tank_sensors', as: 'update_tank_sensors' 
       resources :sensors do
         get '/graph', to: 'sensors#graph', as: 'graph'
@@ -37,7 +38,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     post '/verify_pin_number', to: 'users#verify_pin_number', as: 'verify_pin_number'
-    post '/readings/:token', to: 'readings#create', constraints: { token: %r{[^\/]+} }
+    post '/readings', to: 'readings#create', constraints: { token: %r{[^\/]+} }
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

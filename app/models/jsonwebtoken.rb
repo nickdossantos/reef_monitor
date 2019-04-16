@@ -54,15 +54,11 @@ class Jsonwebtoken < ApplicationRecord
       token
     end 
 
-    def self.encode_connected_sensors(user)
+    def self.encode_connected_sensors(user, tank)
       hmac_secret=ENV['HMAC_SECRET']
-      sensors = []
-      user.tanks.each do |tank|
-        sensors << {:temp_sensor_hash => tank.temp_sensor_hash, :temp_sensor_pin => tank.temp_sensor_pin}
-      end
       payload = {
         auth_token: user.token, 
-        sensors: sensors
+        temp_sensor_hash: tank.temp_sensor_hash
       }
       token = JWT.encode(payload, hmac_secret, ENV['HASH_ALGORITHM'])
       token

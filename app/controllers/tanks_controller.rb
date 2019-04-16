@@ -40,8 +40,6 @@ class TanksController < ApplicationController
   # PATCH/PUT /tanks/1
   # PATCH/PUT /tanks/1.json
   def update
-    # need to update the pi so it knows that sensor's pin to read data from. 
-    # send a post request to the pi with the updated sensor
     respond_to do |format|
       if @tank.update(tank_params)
         format.js {}
@@ -55,7 +53,7 @@ class TanksController < ApplicationController
     tank = Tank.find(params[:tank_id])
     user = User.friendly.find(params[:user_id])
     if user.has_api_configured?
-      RaspberryPiService.sync_connected_sensors(user)
+      RaspberryPiService.sync_connected_sensors(user, tank)
     end 
     respond_to do |format|
       if tank.update(tank_params)
@@ -68,7 +66,15 @@ class TanksController < ApplicationController
 
   def reaspberry_pi
     @tank = @user.tanks.find(params[:tank_id])
-    puts @user.first_name
+  end
+
+  def temperature_widget
+    @tank = @user.tanks.find(params[:tank_id])
+    @temperature_data = TemperatureService.get_temperature(@user, @tank)
+    if !@temperature_data
+      flash[:error] = "Could not access pi's temperature sensor."      
+    end
+    render layout: false 
   end
 
   # DELETE /tanks/1
@@ -93,6 +99,6 @@ class TanksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tank_params
-      params.require(:tank).permit(:name, :description, :temp_sensor_id, :temp_sensor_pin, :temp_sensor_hash)
+      params.require(:tank).permit(:name, :description, :temp_sensor_id, :temp_sensor_pin, :temp_sensor_hash, :raspberry_pi_endpoint)
     end
 end
