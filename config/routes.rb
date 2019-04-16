@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'sms_messages/send_sms'
+
   devise_for :users
   root to: 'pages#homepage'
   get 'pages/tanks', to:'pages#tanks', as:'pages_tanks'

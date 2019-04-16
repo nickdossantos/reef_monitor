@@ -55,6 +55,7 @@ gem 'font-awesome-sass', '~> 4.7.0'
 
 # ChartKick JS for graph visualization
 gem "chartkick"
+
 gem 'groupdate'
 
 # Kaminari for pagination
@@ -76,6 +77,8 @@ gem 'toastr-rails'
 gem 'carrierwave'
 # Images
 gem 'cloudinary'
+
+gem 'twilio-ruby'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
