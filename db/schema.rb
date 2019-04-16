@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190404171816) do
+ActiveRecord::Schema.define(version: 20190411170303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20190404171816) do
     t.integer "sms_notification_hour", default: 0
     t.string "temporary_pin_token"
     t.datetime "temporary_pin_token_expiration_date"
+    t.string "picture"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["hash_id"], name: "index_users_on_hash_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

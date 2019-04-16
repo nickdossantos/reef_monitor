@@ -91,6 +91,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :first_name, :last_name, :sms_number, :time_zone, :api_endpoint, :email_notification_frequency, :sms_notification_frequency, :email_notification_hour, :sms_notification_hour)
+      params.require(:user).permit(:email, :first_name, :last_name, :sms_number, :time_zone, :api_endpoint, :email_notification_frequency, :sms_notification_frequency, :email_notification_hour, :sms_notification_hour, :picture)
     end
 end
