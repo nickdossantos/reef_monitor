@@ -61,10 +61,15 @@
                   </div>
                 </div>
               </div>
+
             <div class="form-group">
-              <%= form.label :api_endpoint, "Raspberry Pi Api Endpoint"%>                                                 
-              <%= form.telephone_field :api_endpoint, class: 'form-control'%>
-            </div>          
+              <%= form.label :email, "Email"%>                
+              <%= form.email_field :email, id: :user_email, class: "form-control" %>  
+            </div>
+            <div class="form-group">
+              <%= form.label :sms_number, "SMS Number"%>                                                 
+              <%= form.telephone_field :sms_number, class: 'form-control', 'data-mask': '000-000-0000'%>
+            </div>         
             <div class="form-group">
               <%= form.label :time_zone, "Time Zone"%>                
               <%= form.time_zone_select(:time_zone, ActiveSupport::TimeZone.us_zones, {}, {:class => 'form-control'}) %>                            
@@ -86,8 +91,5 @@
         </div>    
       <%end%>
     </div>
-  </div>
-  <div class="row">
-    <%= link_to 'SEND TEXT', sms_messages_send_sms_path(), class:'btn btn-primary', remote: true %>
   </div>
 </div>

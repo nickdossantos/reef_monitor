@@ -56,9 +56,12 @@ class Jsonwebtoken < ApplicationRecord
 
     def self.encode_connected_sensors(user, tank)
       hmac_secret=ENV['HMAC_SECRET']
+      sensor = Sensor.find_by(hash_id: tank.temp_sensor_hash)
       payload = {
         auth_token: user.token, 
-        temp_sensor_hash: tank.temp_sensor_hash
+        temp_sensor_hash: tank.temp_sensor_hash, 
+        high_value: sensor.high_value, 
+        low_value: sensor.low_value
       }
       token = JWT.encode(payload, hmac_secret, ENV['HASH_ALGORITHM'])
       token

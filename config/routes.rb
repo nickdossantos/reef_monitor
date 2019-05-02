@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   namespace :api do
     post '/verify_pin_number', to: 'users#verify_pin_number', as: 'verify_pin_number'
     post '/readings', to: 'readings#create', constraints: { token: %r{[^\/]+} }
+    get '/notify', to: 'sms_messages#notify_sms_out_of_range'
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

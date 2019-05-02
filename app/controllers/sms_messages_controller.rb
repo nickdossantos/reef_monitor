@@ -1,7 +1,7 @@
 class SmsMessagesController < ApplicationController
   def send_sms
     message = "Hello this is a test."
-    number = ''
+    number = @user.sms_number
     request = SendSms.call(number, message)
 
     respond_to do |format|
