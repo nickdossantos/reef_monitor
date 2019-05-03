@@ -3,7 +3,8 @@ class RaspberryPiService
     def self.sync_connected_sensors(user, tank)
         begin
             token = Jsonwebtoken.encode_connected_sensors(user, tank)
-            uri = URI(user.api_endpoint << '/api/sync_sensors/all?token=' << token)
+            endpoint = tank.raspberry_pi_endpoint
+            uri = URI(endpoint + '/api/sync_sensors/all?token=' + token)
             http = Net::HTTP.new(uri.host)
             request = Net::HTTP::Post.new(uri.request_uri)
             

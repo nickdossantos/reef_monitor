@@ -15,8 +15,8 @@ Rails.application.routes.draw do
     get 'notifications', to:'users#notifications', as: 'notifications'
     get 'generate_temporary_pin_token', to:'users#generate_temporary_pin_token', as: 'generate_temporary_pin_token'
     get '/raspberry_pi', to: 'users#raspberry_pi', as: 'raspberry_pi'
-    get '/devices/control', to:'devices#device_control', as: 'device_control'
     resources :tanks do
+      get '/devices/control', to:'devices#device_control', as: 'device_control'
       get '/raspberry_pi', to: 'tanks#raspberry_pi', as: 'raspberry_pi' 
       get '/tank_sensors', to: 'tanks#tank_sensors', as: 'tank_sensors' 
       get '/temperature_widget', to:'tanks#temperature_widget', as: 'temperature_widget'

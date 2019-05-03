@@ -1,6 +1,7 @@
 class DeviceService
     require 'net/http'
     def self.device_status(user)
+        puts"I AM OVER HERE"
         begin
             token = Jsonwebtoken.encode_for_get_device_status(user)
             uri = URI(user.api_endpoint << '/api/device_status/all?token=' << token)
@@ -8,9 +9,11 @@ class DeviceService
             request = Net::HTTP::Post.new(uri.request_uri)
             
             res = http.request(request)
-            puts res.body
-            JSON.parse(res.body)
+            puts res.body            
+            puts "I am returning the body"
+            return JSON.parse(res.body)
         rescue => ex
+            puts"I am in resuce"
             puts ex
         end
     end

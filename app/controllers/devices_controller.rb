@@ -61,9 +61,11 @@ class DevicesController < ApplicationController
         end
     end
 
-    def device_control
+    def device_control        
         @devices = @user.devices        
+        
         @pi_devices = DeviceService.device_status(@user)
+        render layout: false
     end
 
     def turn_on_device
@@ -75,7 +77,7 @@ class DevicesController < ApplicationController
     def turn_off_device        
         @device = Device.friendly.find(params[:device_id])
         # Turns off device on pi and gets status of devices.
-        @pi_devices = DeviceService.turn_off_device_pi(@user, @device)
+        @pi_devices = DeviceService.turn_off_device_pi(@user, @device)    
     end
 
     private

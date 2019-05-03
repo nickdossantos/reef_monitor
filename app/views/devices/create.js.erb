@@ -1,2 +1,2 @@
-$('#user-devices-table-tbody').append("<%= j render partial: 'index_row', locals: {device: @device} %>")
+$('#user-devices-table-tbody').append("<%= j render partial: 'device_control_row', locals: {device: @device} %>")
 $('#deviceModal').modal('toggle');

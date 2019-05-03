@@ -31,7 +31,8 @@ class ReadingsController < ApplicationController
   # POST /readings.json
   def create
     @tank = @user.tanks.find(params[:tank_id])
-    @reading = ReadingService.create_reading(@user, params[:reading][:date], params[:hour], params[:minute], params[:value], params[:reading][:sensor_id], params[:reading][:tank_id])
+    sensor = Sensor.find(params[:reading][:sensor_id])
+    @reading = ReadingService.create_manual_reading(@user, sensor, params[:reading][:date], params[:hour], params[:minute], params[:value])
     respond_to do |format|      
       if @reading.save!
         format.js { }

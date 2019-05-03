@@ -69,7 +69,7 @@ class TanksController < ApplicationController
   end
 
   def temperature_widget
-    @tank = @user.tanks.find(params[:tank_id])
+    @tank = @user.tanks.find(params[:tank_id])    
     @temperature_data = TemperatureService.get_temperature(@user, @tank)
     if !@temperature_data
       flash[:error] = "Could not access pi's temperature sensor."      

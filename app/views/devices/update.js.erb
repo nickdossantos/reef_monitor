@@ -1,2 +1,2 @@
-$('#device-<%=@device.id%>').replaceWith("<%= j render partial: 'index_row', locals: {device: @device} %>");
+$('#device-<%=@device.id%>').replaceWith("<%= j render partial: 'index_row', locals: {device: @device, pi_devices: @pi_devices} %>");
 $('#deviceModal').modal('toggle');

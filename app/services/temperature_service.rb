@@ -5,7 +5,7 @@ class TemperatureService
         # get request to the pi app of the user.
         # record the response
         begin
-            url = URI.parse(user.api_endpoint << "/api/get_temperature_reading?token=" << Jsonwebtoken.encode_user_for_temperature_request(user, tank))
+            url = URI.parse(tank.api_endpoint << "/api/get_temperature_reading?token=" << Jsonwebtoken.encode_user_for_temperature_request(user, tank))
             req = Net::HTTP::Get.new(url.to_s)
             res = Net::HTTP.start(url.host, url.port) {|http|
                 http.request(req)
@@ -15,6 +15,7 @@ class TemperatureService
             reading.user_id = user.id
             reading.sensor_id = tank.temp_sensor_id
             reading.date = data['date']
+            reading.date.strftime('%Y-%m-%d')
             reading.value = data['farenheit'].to_f.round(2)
             reading.tank_id = tank.id
             reading.save         
@@ -25,7 +26,8 @@ class TemperatureService
 
     def self.get_temperature(user, tank)
         begin 
-            url = URI.parse(user.api_endpoint << "/api/get_temperature_reading?token=" << Jsonwebtoken.encode_user_for_temperature_request(user, tank))
+            endpoint = tank.raspberry_pi_endpoint
+            url = URI.parse(endpoint << "/api/get_temperature_reading?token=" << Jsonwebtoken.encode_user_for_temperature_request(user, tank))
             req = Net::HTTP::Get.new(url.to_s)
             res = Net::HTTP.start(url.host, url.port) {|http|
                 http.request(req)
