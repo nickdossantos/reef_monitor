@@ -36,18 +36,6 @@
               <p>Raspberry Pi</p>
             </a>
           </li>
-          <li class="<%='active' if @page_tab == "devices"%>">
-            <a href="/users/<%=@user.hash_id%>/devices/control">
-              <i class="nc-icon nc-controller-modern"></i>
-              <p>Device Control</p>
-            </a>
-          </li>
-          <li class="<%='active' if @page_tab == "notifications"%>">
-            <a href="/users/<%=@user.hash_id%>/notifications">
-              <i class="nc-icon nc-bell-55"></i>
-              <p>Notifications</p>
-            </a>
-          </li>
           <li class="<%='active' if @page_tab == "user_profile"%>">
             <a href="/users/<%=@user.hash_id%>/edit">
               <i class="nc-icon nc-single-02"></i>
@@ -78,14 +66,6 @@
           </button>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link btn-magnify" href="#pablo">
-                  <i class="nc-icon nc-bell-55"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block"></span>
-                  </p>
-                </a>
-              </li>
               <li class="nav-item btn-rotate dropdown">
                 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="nc-icon nc-settings-gear-65"></i>

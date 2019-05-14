@@ -62,22 +62,24 @@ class DevicesController < ApplicationController
     end
 
     def device_control        
-        @devices = @user.devices        
-        
-        @pi_devices = DeviceService.device_status(@user)
+        @devices = @user.devices  
+        @tank = Tank.find(params[:tank_id])      
+        @pi_devices = DeviceService.device_status(@user, @tank)
         render layout: false
     end
 
     def turn_on_device
         @device = Device.friendly.find(params[:device_id])
+        @tank = Tank.find(params[:tank_id])
         # Turns on device on pi and gets status of devices.
-        @pi_devices = DeviceService.turn_on_device_pi(@user, @device)
+        @pi_devices = DeviceService.turn_on_device_pi(@user, @device, @tank)
     end 
 
     def turn_off_device        
         @device = Device.friendly.find(params[:device_id])
+        @tank = Tank.find(params[:tank_id])
         # Turns off device on pi and gets status of devices.
-        @pi_devices = DeviceService.turn_off_device_pi(@user, @device)    
+        @pi_devices = DeviceService.turn_off_device_pi(@user, @device, @tank)    
     end
 
     private

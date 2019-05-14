@@ -17,21 +17,21 @@
           <div class="button-container">
             <div class="row">
               <div class="col-lg-3 col-md-6 col-6 ml-auto">
-                <h5>12
+                <h5><%=@user.tanks.count%>
                   <br>
-                  <small>Files</small>
+                  <small>Tanks</small>
                 </h5>
               </div>
               <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
-                <h5>2GB
+                <h5><%=@user.devices.count%>
                   <br>
-                  <small>Used</small>
+                  <small>Devices</small>
                 </h5>
               </div>
               <div class="col-lg-3 mr-auto">
-                <h5>24,6$
+                <h5><%=@user.sensors.count%>
                   <br>
-                  <small>Spent</small>
+                  <small>Parameters</small>
                 </h5>
               </div>
             </div>
