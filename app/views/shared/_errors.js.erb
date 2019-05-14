@@ -1,0 +1,6 @@
+var messages = '<ul>';
+<% obj.errors.full_messages.each do |msg| %>
+    messages += '<li><%=j msg.html_safe%></li>';
+<% end %>
+messages += '</ul>';
+toastr.error(messages);

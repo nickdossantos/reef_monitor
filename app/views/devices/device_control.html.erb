@@ -16,14 +16,21 @@
                     <th>Name</th>
                     <th>Description</th>
                     <th>Tank</th>
-                    <th>Status</th>
+                    <th>Pin</th>
+                    <th>Status</th>  
+                    <th>Control</th>                  
+                    <th><%= link_to(new_user_tank_device_path(@user), class: "btn btn-primary btn-sm", remote: true) do %>
+                        <i class="fa fa-plus"></i> Add New
+                        <% end %>
+                    </th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody id="user-devices-table-tbody">
                   <%if @pi_devices%>
-                    <%= render partial: 'device_control_row', collection: @devices, as: :device %>
+                    <%= render partial: 'device_control_row', collection: @devices, as: :device , locals:{pi_devices: @pi_devices}  %>
                   <%else%>
+                      <%= render partial: 'device_control_row', collection: @devices, as: :device , locals:{pi_devices: @pi_devices}  %>
                       <div class="alert alert-danger alert-dismissible fade show">
                         <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
                           <i class="nc-icon nc-simple-remove"></i>

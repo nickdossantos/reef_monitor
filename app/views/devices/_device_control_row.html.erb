@@ -2,15 +2,29 @@
   <td class="device-name"><%= device.name%></td>
   <td class="device-description"><%= device.description%></td>
   <td class="device-tank"><%= device.tank.name %></td>
-  <%if @pi_devices.any? {|h| h['device'] == device.id && h['status'] == false}%>
-    <td><strong>OFF</strong></td>
-    <td>
-      <%= link_to 'Turn On', user_tank_device_turn_on_device_path(@user, device.tank, device), remote: true, class:"btn btn-primary"%>
-    </td>
-  <%else%>
-    <td><strong>ON</strong></td>
-    <td>
-      <%= link_to 'Turn Off', user_tank_device_turn_off_device_path(@user, device.tank, device), remote: true, class:"btn btn-primary"%>
-    </td>
+  <td class="device-tank"><%= device.pin_number %></td>
+  <%begin%>
+    <%if pi_devices.any? {|h| h['device'] == device.id && h['status'] == false}%>
+      <td><strong>OFF</strong></td>
+      <td>
+        <%= link_to 'Turn On', user_tank_device_turn_on_device_path(@user, device.tank, device), remote: true, class:"btn btn-primary btn-sm"%>
+      </td>
+    <%else%>
+      <td><strong>ON</strong></td>
+      <td>
+        <%= link_to 'Turn Off', user_tank_device_turn_off_device_path(@user, device.tank, device), remote: true, class:"btn btn-primary btn-sm"%>
+      </td>
+    <%end%>
+  <%rescue%>
+    <td>N/A</td>
+    <td>N/A</td>
   <%end%>
+  <td>
+    <%= link_to(edit_user_tank_device_path(@user, device.tank, device), class: "btn btn-primary btn-sm", remote: true) do %>
+      <i class="fa fa-pencil"></i>
+    <%end%>
+    <%= link_to(user_tank_device_path(@user, device.tank, device), method: :delete, remote: true, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-sm")  do %>
+      <i class="fa fa-trash"></i>
+    <%end%>
+  </td>
 </tr>

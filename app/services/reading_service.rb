@@ -1,28 +1,56 @@
 class ReadingService
     def self.create_reading(user, sensor, reading_data)
         # edit an existing reading column
-        date = DateTime.now.in_time_zone(user.time_zone)
-        date_with_time = DateTime.now.in_time_zone(user.time_zone).strftime("%d/%m/%Y")
-        if reading = Reading.find_by(date: date.strftime("%d/%m/%Y"), sensor_id: sensor.id)          
-            reading.user_id = user.id
+        date = DateTime.now.in_time_zone(user.time_zone).strftime("%Y-%m-%d")
+        date_with_time = DateTime.now.in_time_zone(user.time_zone)
+        if reading = Reading.find_by(date: date, sensor_id: sensor.id)          
+            reading.user_id = user.id            
             reading.data['readings'] << {
-                'time' => date,
+                'time' => date_with_time,
                 'reading' => reading_data['farenheit']
             }
             reading.data['average'] = self.exact_reading_data_average_calculation(reading)
         # make a new reading col
         else            
-        reading = Reading.new(user_id: user.id, sensor_id: sensor.id, tank_id: sensor.tank_id, date: date)        
-        reading.data = {
-            'readings' => [{
-                'time' => date,
-                'reading' => reading_data['farenheit']
-            }], 
-            'average' => reading_data['farenheit']
-        }
+            reading = Reading.new(user_id: user.id, sensor_id: sensor.id, tank_id: sensor.tank_id, date: date)        
+            reading.data = {
+                'readings' => [{
+                    'time' => date_with_time,
+                    'reading' => reading_data['farenheit']
+                }], 
+                'average' => reading_data['farenheit']
+            }
         end 
         return reading
-    end 
+    end
+
+    def self.create_manual_reading(user, sensor, date, hour, minute, value)
+        # edit an existing reading column
+        time_in_seconds = (hour.to_i * 3600) + (minute.to_i * 60)
+        date_with_time = Date.parse(date).to_datetime + time_in_seconds.seconds
+        if reading = Reading.find_by(date: date, sensor_id: sensor.id)          
+            reading.user_id = user.id
+            reading.tank_id = sensor.tank_id
+            reading.data['readings'] << {
+                'time' => date_with_time,
+                'reading' => value
+            }
+            reading.data['average'] = self.exact_reading_data_average_calculation(reading)
+        # make a new reading col
+        else            
+            reading = Reading.new(user_id: user.id, sensor_id: sensor.id, tank_id: sensor.tank_id, date: date)        
+            reading.data = {
+                'readings' => [{
+                    'time' => date_with_time,
+                    'reading' => value
+                }], 
+                'average' => value
+            }
+        end 
+        return reading
+    end
+
+
 
     def self.update_reading_data_object(reading, index, value, hour, minute)        
         reading.data['readings'][index]['reading'] = value
