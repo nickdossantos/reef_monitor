@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190411170303) do
+ActiveRecord::Schema.define(version: 20190514173019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,7 +95,6 @@ ActiveRecord::Schema.define(version: 20190411170303) do
     t.integer "email_notification_frequency", default: 0
     t.integer "sms_notification_frequency", default: 0
     t.integer "email_notification_hour", default: 0
-    t.integer "sms_notification_hour", default: 0
     t.string "temporary_pin_token"
     t.datetime "temporary_pin_token_expiration_date"
     t.string "picture"
