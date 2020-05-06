@@ -10,7 +10,7 @@ class Api::TankMessagesController < ApplicationController
             sensor = Sensor.find_by(hash_id: payload['temp_sensor_hash'])
     
             reading = payload['reading_data']['farenheit']
-            MESSAGE = "Hello #{user&.full_name}, sensor for #{sensor.name} has recorded a reading that is out of your desired range. READING: #{reading}"
+            message = "Hello #{user&.full_name}, sensor for #{sensor&.name} has recorded a reading that is out of your desired range. READING: #{reading}"
 
             request = SendSms.call(user.sms_number, )
             render json: {status: "SUCCESS", message: 'Succesfully notified user.', data: decoded_data}, status: :ok
